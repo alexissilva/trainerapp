@@ -1,6 +1,28 @@
 <resources>
     <string name="app_name">Trainer App</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_next_session">Next Workout</string>
+    <string name="title_upcoming_sessions">Upcoming Workouts</string>
+    <string name="title_history">History</string>
+    <string name="title_session_details">Workout Details</string>
+
+
+    <!-- Commons -->
+    <string name="no_upcoming_workouts">No upcoming workouts</string>
+    <string name="no_past_workouts">No past workouts</string>
+
+
+    <!-- Next Session -->
+    <string name="exercises_label">Exercises</string>
+    <string name="sets_label">Sets</string>
+    <string name="reps_label">Reps</string>
+    <string name="skip_button">Skip</string>
+    <string name="done_button">Done</string>
+
+    <!-- Sessions -->
+
+
+    <!-- History -->
+    <string name="done_label">Done</string>
+    <string name="skipped_label">Skipped</string>
+    <string name="past_workouts">Past workouts</string>
 </resources>

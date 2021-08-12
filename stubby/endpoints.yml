@@ -1,0 +1,7 @@
+- request:
+    url: sessions
+    method: GET
+  response:
+    - status: 200
+      latency: 1000
+      file: responses/sessions.json 
