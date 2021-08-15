@@ -2,22 +2,22 @@ package cl.alexissilva.trainerapp.di
 
 import android.content.Context
 import androidx.room.Room
-import cl.alexissilva.trainerapp.data.LocalSessionSource
-import cl.alexissilva.trainerapp.data.RemoteSessionSource
-import cl.alexissilva.trainerapp.data.SessionRepository
-import cl.alexissilva.trainerapp.data.SessionRepositoryImpl
-import cl.alexissilva.trainerapp.domain.SessionStatus
-import cl.alexissilva.trainerapp.framework.FakeRemoteSessionSource
+import cl.alexissilva.trainerapp.data.LocalWorkoutSource
+import cl.alexissilva.trainerapp.data.RemoteWorkoutSource
+import cl.alexissilva.trainerapp.data.WorkoutRepository
+import cl.alexissilva.trainerapp.data.WorkoutRepositoryImpl
+import cl.alexissilva.trainerapp.domain.WorkoutStatus
+import cl.alexissilva.trainerapp.framework.FakeRemoteWorkoutSource
 import cl.alexissilva.trainerapp.framework.database.AppDatabase
-import cl.alexissilva.trainerapp.framework.database.DatabaseSessionSource
-import cl.alexissilva.trainerapp.framework.database.SessionMap
-import cl.alexissilva.trainerapp.framework.network.NetworkSessionSource
-import cl.alexissilva.trainerapp.framework.network.SessionsApi
+import cl.alexissilva.trainerapp.framework.database.DatabaseWorkoutSource
+import cl.alexissilva.trainerapp.framework.database.WorkoutMap
+import cl.alexissilva.trainerapp.framework.network.NetworkWorkoutSource
+import cl.alexissilva.trainerapp.framework.network.WorkoutApi
 import cl.alexissilva.trainerapp.utils.Constants.BASE_URL
 import cl.alexissilva.trainerapp.utils.Constants.DATABASE_NAME
 import cl.alexissilva.trainerapp.utils.Constants.USE_FAKE_REMOTE
 import cl.alexissilva.trainerapp.utils.LocalDateGsonAdapter
-import cl.alexissilva.trainerapp.utils.SessionStatusGsonAdapter
+import cl.alexissilva.trainerapp.utils.WorkoutStatusGsonAdapter
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -37,30 +37,30 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideSessionRepository(
-        localSource: LocalSessionSource,
-        remoteSource: RemoteSessionSource,
-    ): SessionRepository = SessionRepositoryImpl(localSource, remoteSource)
+    fun provideWorkoutRepository(
+        localSource: LocalWorkoutSource,
+        remoteSource: RemoteWorkoutSource,
+    ): WorkoutRepository = WorkoutRepositoryImpl(localSource, remoteSource)
 
     @Singleton
     @Provides
-    fun provideLocalSessionSource(
+    fun provideLocalWorkoutSource(
         @ApplicationContext context: Context
-    ): LocalSessionSource {
+    ): LocalWorkoutSource {
         val database = Room.databaseBuilder(
             context,
             AppDatabase::class.java,
             DATABASE_NAME,
         ).build()
-        return DatabaseSessionSource(database.sessionDao(), SessionMap())
+        return DatabaseWorkoutSource(database.workoutDao(), WorkoutMap())
     }
 
     @Singleton
     @Provides
-    fun provideRemoteSessionSource(
-        networkSource: NetworkSessionSource,
-        fakeSource: FakeRemoteSessionSource,
-    ): RemoteSessionSource {
+    fun provideRemoteWorkoutSource(
+        networkSource: NetworkWorkoutSource,
+        fakeSource: FakeRemoteWorkoutSource,
+    ): RemoteWorkoutSource {
         return if (USE_FAKE_REMOTE) {
             fakeSource
         } else {
@@ -70,12 +70,12 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideSessionApi(gson: Gson): SessionsApi {
+    fun provideWorkoutApi(gson: Gson): WorkoutApi {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
-        return retrofit.create(SessionsApi::class.java)
+        return retrofit.create(WorkoutApi::class.java)
     }
 
     @Singleton
@@ -83,7 +83,7 @@ class AppModule {
     fun provideGson(): Gson {
         return GsonBuilder()
             .registerTypeAdapter(LocalDate::class.java, LocalDateGsonAdapter())
-            .registerTypeAdapter(SessionStatus::class.java, SessionStatusGsonAdapter())
+            .registerTypeAdapter(WorkoutStatus::class.java, WorkoutStatusGsonAdapter())
             .create()
     }
 

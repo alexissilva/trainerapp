@@ -14,13 +14,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        /* TODO use or delete
-        val entryPoint = EntryPointAccessors.fromActivity(
-            this,
-            FragmentFactoryEntryPoint::class.java
-        )
-        supportFragmentManager.fragmentFactory = entryPoint.getFragmentFactory()
-        */
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
@@ -30,8 +23,8 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nextSessionFragment,
-                R.id.sessionsFragment,
+                R.id.nextWorkoutFragment,
+                R.id.workoutsFragment,
                 R.id.historyFragment,
             )
         )

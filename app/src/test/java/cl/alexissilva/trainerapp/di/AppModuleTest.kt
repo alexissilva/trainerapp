@@ -2,12 +2,12 @@ package cl.alexissilva.trainerapp.di
 
 import android.content.Context
 import androidx.test.filters.SmallTest
-import cl.alexissilva.trainerapp.data.LocalSessionSource
-import cl.alexissilva.trainerapp.data.RemoteSessionSource
-import cl.alexissilva.trainerapp.data.SessionRepositoryImpl
-import cl.alexissilva.trainerapp.framework.FakeRemoteSessionSource
-import cl.alexissilva.trainerapp.framework.database.DatabaseSessionSource
-import cl.alexissilva.trainerapp.framework.network.NetworkSessionSource
+import cl.alexissilva.trainerapp.data.LocalWorkoutSource
+import cl.alexissilva.trainerapp.data.RemoteWorkoutSource
+import cl.alexissilva.trainerapp.data.WorkoutRepositoryImpl
+import cl.alexissilva.trainerapp.framework.FakeRemoteWorkoutSource
+import cl.alexissilva.trainerapp.framework.database.DatabaseWorkoutSource
+import cl.alexissilva.trainerapp.framework.network.NetworkWorkoutSource
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Ignore
@@ -25,26 +25,25 @@ class AppModuleTest {
     }
 
     @Test
-    fun provideLocalSessionSource() {
+    fun provideLocalWorkoutSource() {
         val context = mock<Context>()
-        val source = appModule.provideLocalSessionSource(context)
-        assertThat(source).isInstanceOf(DatabaseSessionSource::class.java)
-    }
-
-    @Ignore("It also can returns a fakeSessionSource. Test pending")
-    @Test
-    fun provideRemoteSessionSource() {
-        val networkSource = mock<NetworkSessionSource>()
-        val fakeSource = mock<FakeRemoteSessionSource>()
-        val source = appModule.provideRemoteSessionSource(networkSource, fakeSource)
-        assertThat(source).isInstanceOf(NetworkSessionSource::class.java)
+        val source = appModule.provideLocalWorkoutSource(context)
+        assertThat(source).isInstanceOf(DatabaseWorkoutSource::class.java)
     }
 
     @Test
-    fun providesSessionRepository() {
-        val localSource = mock<LocalSessionSource>()
-        val remoteSource = mock<RemoteSessionSource>()
-        val source = appModule.provideSessionRepository(localSource, remoteSource)
-        assertThat(source).isInstanceOf(SessionRepositoryImpl::class.java)
+    fun provideRemoteWorkoutSource() {
+        val networkSource = mock<NetworkWorkoutSource>()
+        val fakeSource = mock<FakeRemoteWorkoutSource>()
+        val source = appModule.provideRemoteWorkoutSource(networkSource, fakeSource)
+        assertThat(source).isInstanceOf(NetworkWorkoutSource::class.java)
+    }
+
+    @Test
+    fun providesWorkoutRepository() {
+        val localSource = mock<LocalWorkoutSource>()
+        val remoteSource = mock<RemoteWorkoutSource>()
+        val source = appModule.provideWorkoutRepository(localSource, remoteSource)
+        assertThat(source).isInstanceOf(WorkoutRepositoryImpl::class.java)
     }
 }

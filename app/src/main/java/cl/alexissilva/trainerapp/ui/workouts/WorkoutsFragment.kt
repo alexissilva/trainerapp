@@ -1,4 +1,4 @@
-package cl.alexissilva.trainerapp.ui.history
+package cl.alexissilva.trainerapp.ui.workouts
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,30 +7,32 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import cl.alexissilva.trainerapp.databinding.FragmentHistoryBinding
-import cl.alexissilva.trainerapp.domain.WorkoutStatus
+import cl.alexissilva.trainerapp.databinding.FragmentWorkoutsBinding
+import cl.alexissilva.trainerapp.domain.Workout
 import cl.alexissilva.trainerapp.ui.adapters.WorkoutsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class HistoryFragment(
-    private var _viewModel: HistoryViewModel? = null
+class WorkoutsFragment(
+    private var _viewModel: WorkoutsViewModel? = null
 ) : Fragment() {
-
-    private var _binding: FragmentHistoryBinding? = null
+    private var _binding: FragmentWorkoutsBinding? = null
     private val binding get() = _binding!!
     private val viewModel get() = _viewModel!!
-    private val adapter by lazy { WorkoutsAdapter(requireContext(), true) }
+    private val adapter by lazy {
+        WorkoutsAdapter(requireContext(), onItemClick = navigateToDetails)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentHistoryBinding.inflate(inflater, container, false)
-        _viewModel = _viewModel ?: ViewModelProvider(this).get(HistoryViewModel::class.java)
+        _binding = FragmentWorkoutsBinding.inflate(inflater, container, false)
+        _viewModel = _viewModel ?: ViewModelProvider(this).get(WorkoutsViewModel::class.java)
         return binding.root
     }
 
@@ -47,20 +49,23 @@ class HistoryFragment(
 
     private fun collectState() {
         lifecycleScope.launchWhenCreated {
-            viewModel.pastWorkouts.collect { pastWorkout ->
-                binding.doneTextView.text =
-                    pastWorkout.count { it.status == WorkoutStatus.DONE }.toString()
-                binding.skippedTextView.text =
-                    pastWorkout.count { it.status == WorkoutStatus.SKIPPED }.toString()
-                binding.noPastWorkoutsTextView.visibility =
-                    if (pastWorkout.isEmpty()) View.VISIBLE else View.INVISIBLE
-                adapter.setWorkoutList(pastWorkout)
+            viewModel.workouts.collect {
+                adapter.setWorkoutList(it)
+                binding.noWorkoutsTextView.visibility =
+                    if (it.isEmpty()) View.VISIBLE else View.INVISIBLE
             }
         }
+    }
+
+    private val navigateToDetails = { workout: Workout ->
+        val action =
+            WorkoutsFragmentDirections.actionWorkoutsFragmentToWorkoutDetailsActivity(workout.id)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 }

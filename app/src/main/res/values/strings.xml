@@ -1,27 +1,28 @@
 <resources>
     <string name="app_name">Trainer App</string>
-    <string name="title_next_session">Next Workout</string>
-    <string name="title_upcoming_sessions">Upcoming Workouts</string>
+    <string name="title_next_workout">Next Workout</string>
+    <string name="title_upcoming_workouts">Upcoming Workouts</string>
     <string name="title_history">History</string>
-    <string name="title_session_details">Workout Details</string>
+    <string name="title_workout_details">Workout Details</string>
 
 
     <!-- Commons -->
-    <string name="no_upcoming_workouts">No upcoming workouts</string>
-    <string name="no_past_workouts">No past workouts</string>
 
 
-    <!-- Next Session -->
+    <!-- Next Workout -->
+    <string name="no_next_workout">No upcoming workouts.\nSwipe down to download workouts.</string>
     <string name="exercises_label">Exercises</string>
     <string name="sets_label">Sets</string>
     <string name="reps_label">Reps</string>
     <string name="skip_button">Skip</string>
     <string name="done_button">Done</string>
 
-    <!-- Sessions -->
+    <!-- Workouts -->
+    <string name="no_upcoming_workouts">No upcoming workouts.</string>
 
 
     <!-- History -->
+    <string name="no_past_workouts">No past workouts.</string>
     <string name="done_label">Done</string>
     <string name="skipped_label">Skipped</string>
     <string name="past_workouts">Past workouts</string>

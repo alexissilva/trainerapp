@@ -24,8 +24,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.sessiondetails.SessionDetailsActivity"
-            android:label="@string/title_session_details"
+            android:name=".ui.workoutdetails.WorkoutDetailsActivity"
+            android:label="@string/title_workout_details"
             android:theme="@style/Theme.TrainerApp.NoActionBar"/>
     </application>
 

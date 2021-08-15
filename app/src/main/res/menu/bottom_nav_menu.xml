@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nextSessionFragment"
+        android:id="@+id/nextWorkoutFragment"
         android:icon="@drawable/ic_fire"
-        android:title="@string/title_next_session" />
+        android:title="@string/title_next_workout" />
 
     <item
-        android:id="@+id/sessionsFragment"
+        android:id="@+id/workoutsFragment"
         android:icon="@drawable/ic_calendar"
-        android:title="@string/title_upcoming_sessions" />
+        android:title="@string/title_upcoming_workouts" />
 
     <item
         android:id="@+id/historyFragment"

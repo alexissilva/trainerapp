@@ -78,7 +78,7 @@
         app:layout_constraintTop_toBottomOf="@+id/header_layout" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/sessions_recyclerView"
+        android:id="@+id/workouts_recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
@@ -87,10 +87,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pastWorkouts_label"
-        tools:listitem="@layout/sessions_row_item" />
+        tools:listitem="@layout/workout_row_item" />
 
     <TextView
-        android:id="@+id/noPastSessions_textView"
+        android:id="@+id/noPastWorkouts_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/no_past_workouts"

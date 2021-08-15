@@ -6,8 +6,8 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import cl.alexissilva.trainerapp.R
-import cl.alexissilva.trainerapp.domain.Session
-import cl.alexissilva.trainerapp.domain.SessionStatus
+import cl.alexissilva.trainerapp.domain.Workout
+import cl.alexissilva.trainerapp.domain.WorkoutStatus
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Before
 import org.junit.Test
@@ -21,17 +21,17 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 class HistoryFragmentTest {
 
-    private val dummyPastSessions = listOf(
-        Session("1", "session1", status = SessionStatus.DONE),
-        Session("2", "session2", status = SessionStatus.SKIPPED),
-        Session("3", "session3", status = SessionStatus.DONE),
+    private val pastWorkouts = listOf(
+        Workout("1", "workout1", status = WorkoutStatus.DONE),
+        Workout("2", "workout2", status = WorkoutStatus.SKIPPED),
+        Workout("3", "workout3", status = WorkoutStatus.DONE),
     )
     private lateinit var viewModel: HistoryViewModel
 
     @Before
     fun setUp() {
         viewModel = mock {
-            on { pastSessions } doReturn MutableStateFlow(dummyPastSessions)
+            on { pastWorkouts } doReturn MutableStateFlow(pastWorkouts)
         }
     }
 
@@ -48,19 +48,19 @@ class HistoryFragmentTest {
     }
 
     @Test
-    fun showsPastSessionList() {
+    fun showsPastWorkoutList() {
         launchFragmentInContainer { HistoryFragment(viewModel) }
-        for (pastSession in dummyPastSessions.subList(0,2)) {
-            onView(withText(pastSession.name)).check(matches(isDisplayed()))
+        for (pastWorkout in pastWorkouts.subList(0,2)) {
+            onView(withText(pastWorkout.name)).check(matches(isDisplayed()))
         }
     }
 
     @Test
     fun showsNoPastWorkoutText_whenNoPastWorkouts() {
-        val emptyFlow = MutableStateFlow(emptyList<Session>())
-        whenever(viewModel.pastSessions).thenReturn(emptyFlow)
+        val emptyFlow = MutableStateFlow(emptyList<Workout>())
+        whenever(viewModel.pastWorkouts).thenReturn(emptyFlow)
         launchFragmentInContainer { HistoryFragment(viewModel) }
-        onView(withId(R.id.noPastSessions_textView)).check(matches(isDisplayed()))
+        onView(withId(R.id.noPastWorkouts_textView)).check(matches(isDisplayed()))
     }
 
 

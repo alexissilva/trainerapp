@@ -3,22 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nextSessionFragment">
+    app:startDestination="@+id/nextWorkoutFragment">
 
     <fragment
-        android:id="@+id/nextSessionFragment"
-        android:name="cl.alexissilva.trainerapp.ui.nextsession.NextSessionFragment"
-        android:label="@string/title_next_session"
-        tools:layout="@layout/fragment_next_session" />
+        android:id="@+id/nextWorkoutFragment"
+        android:name="cl.alexissilva.trainerapp.ui.nextworkout.NextWorkoutFragment"
+        android:label="@string/title_next_workout"
+        tools:layout="@layout/fragment_next_workout" />
 
     <fragment
-        android:id="@+id/sessionsFragment"
-        android:name="cl.alexissilva.trainerapp.ui.sessions.SessionsFragment"
-        android:label="@string/title_upcoming_sessions"
-        tools:layout="@layout/fragment_sessions" >
+        android:id="@+id/workoutsFragment"
+        android:name="cl.alexissilva.trainerapp.ui.workouts.WorkoutsFragment"
+        android:label="@string/title_upcoming_workouts"
+        tools:layout="@layout/fragment_workouts" >
         <action
-            android:id="@+id/action_sessionsFragment_to_sessionDetailsActivity"
-            app:destination="@id/sessionDetailsActivity" />
+            android:id="@+id/action_workoutsFragment_to_workoutDetailsActivity"
+            app:destination="@id/workoutDetailsActivity" />
     </fragment>
 
     <fragment
@@ -28,12 +28,12 @@
         tools:layout="@layout/fragment_history" />
 
     <activity
-        android:id="@+id/sessionDetailsActivity"
-        android:name="cl.alexissilva.trainerapp.ui.sessiondetails.SessionDetailsActivity"
-        android:label="@string/title_session_details"
-        tools:layout="@layout/activity_session_details" >
+        android:id="@+id/workoutDetailsActivity"
+        android:name="cl.alexissilva.trainerapp.ui.workoutdetails.WorkoutDetailsActivity"
+        android:label="@string/title_workout_details"
+        tools:layout="@layout/activity_workout_details" >
         <argument
-            android:name="sessionId"
+            android:name="workoutId"
             app:argType="string" />
     </activity>
 </navigation>
