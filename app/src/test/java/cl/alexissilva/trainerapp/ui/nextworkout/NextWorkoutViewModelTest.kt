@@ -4,13 +4,15 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import cl.alexissilva.trainerapp.data.RemoteResult
 import cl.alexissilva.trainerapp.domain.Workout
 import cl.alexissilva.trainerapp.domain.WorkoutStatus
+import cl.alexissilva.trainerapp.testutils.DummyData
+import cl.alexissilva.trainerapp.testutils.MainCoroutineRule
+import cl.alexissilva.trainerapp.testutils.TestCoroutineContextProvider
 import cl.alexissilva.trainerapp.usecases.DownloadWorkouts
 import cl.alexissilva.trainerapp.usecases.GetNextWorkout
 import cl.alexissilva.trainerapp.usecases.UpdateWorkoutStatus
-import cl.alexissilva.trainerapp.utils.MainCoroutineRule
-import cl.alexissilva.trainerapp.utils.TestCoroutineContextProvider
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
@@ -26,6 +28,8 @@ import org.mockito.kotlin.whenever
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class NextWorkoutViewModelTest {
+
+    private val workout = DummyData.workout
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -44,18 +48,28 @@ class NextWorkoutViewModelTest {
 
     private lateinit var viewModel: NextWorkoutViewModel
 
-    private val workout = Workout("dummy", "dummy")
+    private lateinit var nextWorkoutFlow: Flow<Workout?>
 
 
     @Before
     fun setUp() {
         updateWorkoutStatus = mock()
         downloadWorkouts = mock()
+        nextWorkoutFlow = flowOf<Workout?>(null)
         getNextWorkout = mock {
-            on { invoke() } doReturn flowOf(null)
+            on { invoke() } doReturn nextWorkoutFlow
         }
-        viewModel =
-            NextWorkoutViewModel(downloadWorkouts, getNextWorkout, updateWorkoutStatus, contextProvider)
+        initViewModel()
+    }
+
+    private fun initViewModel() {
+        viewModel = NextWorkoutViewModel(
+            downloadWorkouts,
+            mock(),
+            getNextWorkout,
+            updateWorkoutStatus,
+            contextProvider
+        )
     }
 
     @Test
@@ -63,7 +77,7 @@ class NextWorkoutViewModelTest {
         val remoteSuccess = RemoteResult.Success(listOf(workout))
         whenever(downloadWorkouts()).thenReturn(remoteSuccess)
 
-        viewModel.downloadWorkouts()
+        viewModel.syncWorkouts()
 
         verify(downloadWorkouts).invoke()
         assertThat(viewModel.errorMessage.value).isNull()
@@ -74,7 +88,7 @@ class NextWorkoutViewModelTest {
         val remoteSuccess = RemoteResult.Error<List<Workout>>("remote-error")
         whenever(downloadWorkouts()).thenReturn(remoteSuccess)
 
-        viewModel.downloadWorkouts()
+        viewModel.syncWorkouts()
 
         verify(downloadWorkouts).invoke()
         assertThat(viewModel.errorMessage.value).isEqualTo("remote-error")
@@ -82,19 +96,16 @@ class NextWorkoutViewModelTest {
 
     @Test
     fun setWorkout_withNextWorkout() {
-        whenever(getNextWorkout()).thenReturn(flowOf(workout))
-
-        val viewModel = NextWorkoutViewModel(downloadWorkouts, getNextWorkout, updateWorkoutStatus, contextProvider)
+        whenever(nextWorkoutFlow).thenReturn(flowOf(workout))
+        initViewModel()
         val viewModelWorkouts = viewModel.workout.value
         assertThat(viewModelWorkouts).isEqualTo(workout)
     }
 
     @Test
     fun updateStatus_ofNextWorkout() = runBlockingTest {
-        whenever(getNextWorkout()).thenReturn(flowOf(workout))
-        val viewModel = NextWorkoutViewModel(downloadWorkouts, getNextWorkout, updateWorkoutStatus, contextProvider)
-
-
+        whenever(nextWorkoutFlow).thenReturn(flowOf(workout))
+        initViewModel()
         viewModel.updateWorkoutStatus(WorkoutStatus.DONE)
         verify(updateWorkoutStatus).invoke(workout, WorkoutStatus.DONE)
     }

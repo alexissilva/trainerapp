@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import cl.alexissilva.trainerapp.data.RemoteResult
 import cl.alexissilva.trainerapp.domain.Workout
 import cl.alexissilva.trainerapp.domain.WorkoutStatus
+import cl.alexissilva.trainerapp.usecases.DeleteWorkoutLogs
 import cl.alexissilva.trainerapp.usecases.DownloadWorkouts
 import cl.alexissilva.trainerapp.usecases.GetNextWorkout
 import cl.alexissilva.trainerapp.usecases.UpdateWorkoutStatus
@@ -22,6 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class NextWorkoutViewModel @Inject constructor(
     private val downloadWorkoutsUC: DownloadWorkouts,
+    private val deleteWorkoutLogs: DeleteWorkoutLogs,
     private val getNextWorkout: GetNextWorkout,
     private val updateWorkoutStatusUC: UpdateWorkoutStatus,
     private val contextProvider: CoroutineContextProvider,
@@ -37,10 +39,14 @@ class NextWorkoutViewModel @Inject constructor(
     val errorMessage: StateFlow<String?> = _errorMessage
 
 
-    fun downloadWorkouts() = viewModelScope.launch {
+    fun syncWorkouts() = viewModelScope.launch {
         _isLoading.value = true
         _errorMessage.value = null
-        val remoteResult = withContext(contextProvider.IO) { downloadWorkoutsUC() }
+        val remoteResult = withContext(contextProvider.IO) {
+            //TODO remove deleteWorkoutLogs
+            deleteWorkoutLogs()
+            downloadWorkoutsUC()
+        }
         if (remoteResult is RemoteResult.Error) {
             _errorMessage.value = remoteResult.message
         }

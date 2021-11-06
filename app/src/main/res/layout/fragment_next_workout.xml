@@ -41,14 +41,14 @@
                     tools:text="Upper body 1" />
 
                 <TextView
-                    android:id="@+id/date_textView"
+                    android:id="@+id/day_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="@+id/workoutName_textView"
                     app:layout_constraintStart_toStartOf="@+id/workoutName_textView"
                     app:layout_constraintTop_toBottomOf="@+id/workoutName_textView"
-                    tools:text="Monday, 2 August" />
+                    tools:text="Day 3" />
 
                 <TextView
                     android:id="@+id/exercises_textView"
@@ -58,7 +58,7 @@
                     android:textSize="16sp"
                     app:layout_constraintEnd_toStartOf="@+id/sets_textView"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/date_textView"
+                    app:layout_constraintTop_toBottomOf="@+id/day_textView"
                     tools:text="3" />
 
                 <TextView

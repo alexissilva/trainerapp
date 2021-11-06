@@ -7,14 +7,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cl.alexissilva.trainerapp.databinding.ExerciseRowItemBinding
-import cl.alexissilva.trainerapp.domain.Exercise
+import cl.alexissilva.trainerapp.domain.WorkoutExercise
 import cl.alexissilva.trainerapp.ui.DefaultDiffUtil
 import com.bumptech.glide.Glide
 
 class ExercisesAdapter(private val context: Context) :
     RecyclerView.Adapter<ExercisesAdapter.ViewHolder>() {
 
-    private var exerciseList = mutableListOf<Exercise>()
+    private var exerciseList = mutableListOf<WorkoutExercise>()
 
     class ViewHolder(val binding: ExerciseRowItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -27,18 +27,18 @@ class ExercisesAdapter(private val context: Context) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val exercise = exerciseList[position]
 
-        holder.binding.nameTextView.text = exercise.name
+        holder.binding.nameTextView.text = exercise.exercise.name
         holder.binding.groupSetsRecyclerView.adapter = GroupSetsAdapter(exercise.groupSets)
         holder.binding.groupSetsRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        Glide.with(context).load(exercise.image).centerCrop().into(holder.binding.exerciseImageView)
+        Glide.with(context).load(exercise.exercise.image).centerCrop().into(holder.binding.exerciseImageView)
     }
 
     override fun getItemCount(): Int {
         return exerciseList.size
     }
 
-    fun setExerciseList(newExerciseList: List<Exercise>) {
+    fun setExerciseList(newExerciseList: List<WorkoutExercise>) {
         val diffCallback = DefaultDiffUtil(this.exerciseList, newExerciseList)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.exerciseList.clear()

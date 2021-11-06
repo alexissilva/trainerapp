@@ -1,4 +1,4 @@
-package cl.alexissilva.trainerapp.utils
+package cl.alexissilva.trainerapp.testutils
 
 import android.view.animation.Animation
 import androidx.annotation.IdRes

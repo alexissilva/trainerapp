@@ -1,34 +1,48 @@
 package cl.alexissilva.trainerapp.data
 
 import androidx.test.filters.SmallTest
-import cl.alexissilva.trainerapp.domain.Workout
+import cl.alexissilva.trainerapp.domain.WorkoutLog
+import cl.alexissilva.trainerapp.testutils.DummyData
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.verify
 import org.mockito.kotlin.any
+import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
 @SmallTest
 class WorkoutRepositoryImplTest {
-    private val dummyWorkout = Workout("dummy", "dummy")
+    private val dummyWorkout = DummyData.workout
+    private val dummyWorkoutLog = DummyData.workoutLog
 
     private lateinit var localSource: LocalWorkoutSource
     private lateinit var remoteSource: RemoteWorkoutSource
+    private lateinit var workoutLogSource: WorkoutLogSource
     private lateinit var workoutRepository: WorkoutRepositoryImpl
+
+    private val workoutLogs = emptyFlow<List<WorkoutLog>>()
+    private val workoutLog = emptyFlow<WorkoutLog?>()
 
     @Before
     fun setUp() {
+        workoutLogSource = mock {
+            on { getWorkoutLogs() } doReturn workoutLogs
+            on { getWorkoutLogById(any()) } doReturn workoutLog
+            on { getWorkoutLogByWorkoutId(any()) } doReturn workoutLog
+        }
         localSource = mock()
         remoteSource = mock()
         workoutRepository = WorkoutRepositoryImpl(
             localSource,
-            remoteSource
+            remoteSource,
+            workoutLogSource
         )
     }
 
@@ -73,5 +87,35 @@ class WorkoutRepositoryImplTest {
     fun deletesLocalWorkout() = runBlockingTest {
         workoutRepository.deleteWorkout(dummyWorkout)
         verify(localSource).delete(dummyWorkout)
+    }
+
+    @Test
+    fun savesWorkoutLog_intoLogSource() = runBlockingTest {
+        workoutRepository.saveWorkoutLog(dummyWorkoutLog)
+        verify(workoutLogSource).saveWorkoutLog(dummyWorkoutLog)
+    }
+
+    @Test
+    fun deletesWorkoutLog_fromLogSource() = runBlockingTest {
+        workoutRepository.deleteWorkoutLog(dummyWorkoutLog)
+        verify(workoutLogSource).deleteWorkoutLog(dummyWorkoutLog)
+    }
+
+    @Test
+    fun getsWorkoutLogs_fromLogSource() {
+        val repositoryWorkoutLog = workoutRepository.getWorkoutLogs()
+        assertThat(repositoryWorkoutLog).isEqualTo(workoutLogs)
+    }
+
+    @Test
+    fun getsWorkoutLogById_fromLogSource() {
+        val repositoryWorkoutLog = workoutRepository.getWorkoutLogById("id")
+        assertThat(repositoryWorkoutLog).isEqualTo(workoutLog)
+    }
+
+    @Test
+    fun getsWorkoutLogByWorkoutId_fromLogSource() {
+        val repositoryWorkoutLog = workoutRepository.getWorkoutLogByWorkoutId("id")
+        assertThat(repositoryWorkoutLog).isEqualTo(workoutLog)
     }
 }

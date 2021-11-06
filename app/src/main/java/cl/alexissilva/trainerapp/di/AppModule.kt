@@ -2,15 +2,14 @@ package cl.alexissilva.trainerapp.di
 
 import android.content.Context
 import androidx.room.Room
-import cl.alexissilva.trainerapp.data.LocalWorkoutSource
-import cl.alexissilva.trainerapp.data.RemoteWorkoutSource
-import cl.alexissilva.trainerapp.data.WorkoutRepository
-import cl.alexissilva.trainerapp.data.WorkoutRepositoryImpl
+import cl.alexissilva.trainerapp.data.*
 import cl.alexissilva.trainerapp.domain.WorkoutStatus
 import cl.alexissilva.trainerapp.framework.FakeRemoteWorkoutSource
 import cl.alexissilva.trainerapp.framework.database.AppDatabase
-import cl.alexissilva.trainerapp.framework.database.DatabaseWorkoutSource
-import cl.alexissilva.trainerapp.framework.database.WorkoutMap
+import cl.alexissilva.trainerapp.framework.database.workout.DatabaseWorkoutSource
+import cl.alexissilva.trainerapp.framework.database.workout.WorkoutMap
+import cl.alexissilva.trainerapp.framework.database.workoutlog.DatabaseWorkoutLogSource
+import cl.alexissilva.trainerapp.framework.database.workoutlog.WorkoutLogMap
 import cl.alexissilva.trainerapp.framework.network.NetworkWorkoutSource
 import cl.alexissilva.trainerapp.framework.network.WorkoutApi
 import cl.alexissilva.trainerapp.utils.Constants.BASE_URL
@@ -40,19 +39,35 @@ class AppModule {
     fun provideWorkoutRepository(
         localSource: LocalWorkoutSource,
         remoteSource: RemoteWorkoutSource,
-    ): WorkoutRepository = WorkoutRepositoryImpl(localSource, remoteSource)
+        workoutLogSource: WorkoutLogSource,
+    ): WorkoutRepository = WorkoutRepositoryImpl(localSource, remoteSource, workoutLogSource)
 
     @Singleton
     @Provides
     fun provideLocalWorkoutSource(
-        @ApplicationContext context: Context
+        database: AppDatabase,
     ): LocalWorkoutSource {
-        val database = Room.databaseBuilder(
+        return DatabaseWorkoutSource(database.workoutDao(), WorkoutMap())
+    }
+
+    @Singleton
+    @Provides
+    fun provideWorkoutLogSource(
+        database: AppDatabase,
+    ): WorkoutLogSource {
+        return DatabaseWorkoutLogSource(database.workoutLogDao(), WorkoutLogMap())
+    }
+
+    @Singleton
+    @Provides
+    fun provideDatabase(
+        @ApplicationContext context: Context
+    ): AppDatabase {
+        return Room.databaseBuilder(
             context,
             AppDatabase::class.java,
             DATABASE_NAME,
         ).build()
-        return DatabaseWorkoutSource(database.workoutDao(), WorkoutMap())
     }
 
     @Singleton

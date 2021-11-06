@@ -1,14 +1,16 @@
-package cl.alexissilva.trainerapp.framework.database
+package cl.alexissilva.trainerapp.framework.database.workout
 
 import cl.alexissilva.trainerapp.domain.Workout
-import cl.alexissilva.trainerapp.domain.WorkoutStatus
+import cl.alexissilva.trainerapp.testutils.DummyData
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test
-import java.time.LocalDate
 
 
 class WorkoutMapTest {
+
+    private val workout = DummyData.workout
+    private val workoutEntity = DummyData.workoutEntity
     private lateinit var workoutMap: WorkoutMap
 
     @Before
@@ -18,25 +20,21 @@ class WorkoutMapTest {
 
     @Test
     fun mapWorkout_toWorkoutEntity() {
-        val workout = Workout("id", "name", status = WorkoutStatus.SKIPPED)
         val entity = workoutMap.toWorkoutEntity(workout)
         assertThat(entity).isInstanceOf(WorkoutEntity::class.java)
-        assertThat(entity.id).isEqualTo(workout.id)
-        assertThat(entity.name).isEqualTo(workout.name)
-        assertThat(entity.name).isEqualTo(workout.name)
-        assertThat(entity.status).isEqualTo(workout.status)
-
-
+        assertThatAreEquivalent(workout, entity)
     }
 
     @Test
     fun createWorkout_fromWorkoutEntity() {
-        val entity = WorkoutEntity("id", "name", LocalDate.MIN, emptyList(), status = WorkoutStatus.DONE)
-        val workout = workoutMap.fromWorkoutEntity(entity)
+        val workout = workoutMap.fromWorkoutEntity(workoutEntity)
         assertThat(workout).isInstanceOf(Workout::class.java)
+        assertThatAreEquivalent(workout, workoutEntity)
+    }
+
+    private fun assertThatAreEquivalent(workout: Workout, entity: WorkoutEntity) {
         assertThat(workout.id).isEqualTo(entity.id)
         assertThat(workout.name).isEqualTo(entity.name)
-        assertThat(workout.status).isEqualTo(entity.status)
-
+        assertThat(workout.day).isEqualTo(entity.day)
     }
 }

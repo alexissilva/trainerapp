@@ -1,4 +1,4 @@
-package cl.alexissilva.trainerapp.utils
+package cl.alexissilva.trainerapp.testutils
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

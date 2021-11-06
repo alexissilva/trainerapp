@@ -1,9 +1,7 @@
 package cl.alexissilva.trainerapp.usecases
 
 import androidx.test.filters.SmallTest
-import cl.alexissilva.trainerapp.data.WorkoutRepository
-import cl.alexissilva.trainerapp.domain.Workout
-import cl.alexissilva.trainerapp.domain.WorkoutStatus
+import cl.alexissilva.trainerapp.testutils.DummyData
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -13,46 +11,26 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
-import org.mockito.kotlin.stub
-import java.time.Clock
-import java.time.LocalDate
-import java.time.ZoneId
 
 @ExperimentalCoroutinesApi
 @SmallTest
 class GetNextWorkoutTest {
-
-    private val fakeCurrentDate = LocalDate.of(2021, 1, 1)
+    private val workout = DummyData.workout
+    private val workout2 = DummyData.workout2
 
     private lateinit var getNextWorkout: GetNextWorkout
 
-    private lateinit var repository: WorkoutRepository
-
     @Before
     fun setUp() {
-        val fixedClock = Clock.fixed(
-            fakeCurrentDate.atStartOfDay(ZoneId.systemDefault()).toInstant(),
-            ZoneId.systemDefault()
-        )
-        repository = mock()
-        getNextWorkout = GetNextWorkout(repository, fixedClock)
-
+        val getUpcomingWorkouts = mock<GetUpcomingWorkouts> {
+            on { invoke() } doReturn flowOf(listOf(workout, workout2))
+        }
+        getNextWorkout = GetNextWorkout(getUpcomingWorkouts)
     }
 
     @Test
-    fun invoke_getNextWorkout() = runBlockingTest {
-        val localWorkouts = listOf(
-            Workout("1", "s1", LocalDate.of(2020, 1, 1), emptyList(), WorkoutStatus.SKIPPED),
-            Workout("2", "s2", LocalDate.of(2021, 2, 1), emptyList(), WorkoutStatus.DONE),
-            Workout("3", "s3", LocalDate.of(2021, 3, 1), emptyList(), WorkoutStatus.PENDING),
-
-        )
-
-        repository.stub {
-            on { getLocalWorkouts() } doReturn flowOf(localWorkouts)
-        }
-
+    fun getsUpcomingWorkoutWithMinDay() = runBlockingTest {
         val nextWorkout = getNextWorkout().first()
-        assertThat(nextWorkout).isEqualTo(localWorkouts[2])
+        assertThat(nextWorkout).isEqualTo(workout)
     }
 }

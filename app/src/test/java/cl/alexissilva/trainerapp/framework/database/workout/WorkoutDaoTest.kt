@@ -1,9 +1,10 @@
-package cl.alexissilva.trainerapp.framework.database
+package cl.alexissilva.trainerapp.framework.database.workout
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
-import cl.alexissilva.trainerapp.domain.WorkoutStatus
+import cl.alexissilva.trainerapp.framework.database.AppDatabase
+import cl.alexissilva.trainerapp.testutils.DummyData
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -17,7 +18,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
-import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -27,7 +27,9 @@ import javax.inject.Named
 @Config(application = HiltTestApplication::class)
 @RunWith(AndroidJUnit4::class)
 class WorkoutDaoTest {
-    private val workoutEntity = WorkoutEntity("workout", "workout", LocalDate.MIN, emptyList(), WorkoutStatus.PENDING)
+    private val workoutEntity = DummyData.workoutEntity
+    private val workoutEntity2 = DummyData.workoutEntity2
+
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
@@ -61,22 +63,21 @@ class WorkoutDaoTest {
 
     @Test
     fun updateWorkoutEntity() = runBlockingTest {
-        val dummyEntity2 = WorkoutEntity(workoutEntity.id, "dummy2", LocalDate.MIN, emptyList(), WorkoutStatus.DONE)
+        val entityWithSameId = WorkoutEntity(workoutEntity.id, "", 1, emptyList())
         workoutDao.insert(workoutEntity)
-        workoutDao.insert(dummyEntity2)
+        workoutDao.insert(entityWithSameId)
 
         val workouts = workoutDao.getAll().first()
-        assertThat(workouts).containsExactly(dummyEntity2)
+        assertThat(workouts).containsExactly(entityWithSameId)
     }
 
 
     @Test
     fun insertManyWorkoutEntities() = runBlockingTest {
-        val dummyEntity2 = WorkoutEntity("dummy2", "dummy2", LocalDate.MIN, emptyList(), WorkoutStatus.PENDING)
-        workoutDao.insert(listOf(workoutEntity, dummyEntity2))
+        workoutDao.insert(listOf(workoutEntity, workoutEntity2))
 
         val workouts = workoutDao.getAll().first()
-        assertThat(workouts).containsExactly(workoutEntity, dummyEntity2)
+        assertThat(workouts).containsExactly(workoutEntity, workoutEntity2)
     }
 
     @Test

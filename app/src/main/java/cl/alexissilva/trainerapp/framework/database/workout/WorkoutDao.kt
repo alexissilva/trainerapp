@@ -1,4 +1,4 @@
-package cl.alexissilva.trainerapp.framework.database
+package cl.alexissilva.trainerapp.framework.database.workout
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow

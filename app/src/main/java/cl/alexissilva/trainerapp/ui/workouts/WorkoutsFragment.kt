@@ -22,9 +22,7 @@ class WorkoutsFragment(
     private var _binding: FragmentWorkoutsBinding? = null
     private val binding get() = _binding!!
     private val viewModel get() = _viewModel!!
-    private val adapter by lazy {
-        WorkoutsAdapter(requireContext(), onItemClick = navigateToDetails)
-    }
+    private val adapter by lazy { WorkoutsAdapter(navigateToDetails) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +48,7 @@ class WorkoutsFragment(
     private fun collectState() {
         lifecycleScope.launchWhenCreated {
             viewModel.workouts.collect {
-                adapter.setWorkoutList(it)
+                adapter.dataList = it
                 binding.noWorkoutsTextView.visibility =
                     if (it.isEmpty()) View.VISIBLE else View.INVISIBLE
             }

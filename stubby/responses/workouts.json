@@ -3,12 +3,14 @@
       {
          "id":"1",
          "name":"Upper body!",
-         "date":"2021-10-01",
+         "day":1,
          "status":0,
          "exercises":[
             {
-               "name":"Bench press",
-               "image":"https://blog.nasm.org/hubfs/bench-press-form.jpg",
+               "exercise": {
+                  "name":"Bench press",
+                  "image":"https://blog.nasm.org/hubfs/bench-press-form.jpg"
+               },
                "groupSets":[
                   {
                      "sets":2,
@@ -23,8 +25,10 @@
                ]
             },
             {
-               "name":"Pull-ups",
-               "image":"https://media.gq.com.mx/photos/5c5dc4e8d47f8c96e4fd3e0d/16:9/w_1920,c_limit/pull%20ups.jpg",
+               "exercise": {
+                  "name":"Pull-ups",
+                  "image":"https://media.gq.com.mx/photos/5c5dc4e8d47f8c96e4fd3e0d/16:9/w_1920,c_limit/pull%20ups.jpg"
+               },
                "groupSets":[
                   {
                      "sets":3,
@@ -34,8 +38,10 @@
                ]
             },
             {
-               "name":"Dips",
-               "image":"https://i.ytimg.com/vi/wjUmnZH528Y/maxresdefault.jpg",
+               "exercise": {
+                  "name": "Dips",
+                  "image": "https://i.ytimg.com/vi/wjUmnZH528Y/maxresdefault.jpg"
+               },
                "groupSets":[
                   {
                      "sets":3,
@@ -45,8 +51,10 @@
                ]
             },
             {
-               "name":"Barbell Rows",
-               "image":"https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/weightlifting-1549907101.jpg",
+               "exercise": {
+                  "name": "Barbell Rows",
+                  "image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/weightlifting-1549907101.jpg"
+               },
                "groupSets":[
                   {
                      "sets":3,
@@ -56,8 +64,10 @@
                ]
             },
             {
-               "name":"Biceps curl",
-               "image":"https://i.ytimg.com/vi/in7PaeYlhrM/maxresdefault.jpg",
+               "exercise": {
+                  "name": "Biceps curl",
+                  "image": "https://i.ytimg.com/vi/in7PaeYlhrM/maxresdefault.jpg"
+               },
                "groupSets":[
                   {
                      "sets":2,
@@ -71,12 +81,14 @@
       {
          "id":"2",
          "name":"Lower body",
-         "date":"2021-11-01",
+         "day":2,
          "status":0,
          "exercises":[
             {
-               "name":"Back squat",
-               "image":"https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/articles/2016/03/pause-squats-1487260284.jpg",
+               "exercise": {
+                  "name": "Back squat",
+                  "image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/articles/2016/03/pause-squats-1487260284.jpg"
+               },
                "groupSets":[
                   {
                      "sets":4,
@@ -96,8 +108,10 @@
                ]
             },
             {
-               "name":"Deadlift",
-               "image":"https://barbend.com/wp-content/uploads/2016/12/BarBend-Feature-Image-1200-x-675-2021-04-07T141449.522.jpg",
+               "exercise": {
+                  "name": "Deadlift",
+                  "image": "https://barbend.com/wp-content/uploads/2016/12/BarBend-Feature-Image-1200-x-675-2021-04-07T141449.522.jpg"
+               },
                "groupSets":[
                   {
                      "sets":3,
@@ -107,8 +121,10 @@
                ]
             },
             {
-               "name":"Lunges",
-               "image":"https://fitenium.com/wp-content/uploads/2021/02/Lunge-with-Barbell.jpg",
+               "exercise": {
+                  "name": "Lunges",
+                  "image": "https://fitenium.com/wp-content/uploads/2021/02/Lunge-with-Barbell.jpg"
+               },
                "groupSets":[
                   {
                      "sets":2,
@@ -117,8 +133,10 @@
                ]
             },
             {
-               "name":"Hip Thrust",
-               "image":"https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hip-thrust-1571064255.jpg",
+               "exercise": {
+                  "name": "Hip Thrust",
+                  "image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hip-thrust-1571064255.jpg"
+               },
                "groupSets":[
                   {
                      "sets":3,
@@ -127,8 +145,10 @@
                ]
             },
             {
-               "name":"Calf Raises",
-               "image":"https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/trained-legs-with-muscular-calves-in-sneakers-in-royalty-free-image-1617795445.",
+               "exercise": {
+                  "name": "Calf Raises",
+                  "image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/trained-legs-with-muscular-calves-in-sneakers-in-royalty-free-image-1617795445."
+               },
                "groupSets":[
                   {
                      "sets":2,
@@ -137,8 +157,10 @@
                ]
             },
             {
-               "name":"Curl Hamstring",
-               "image":"https://cdn.shopify.com/s/files/1/1876/4703/articles/shutterstock_430434973_1600x.jpg?v=1587822776",
+               "exercise": {
+                  "name": "Curl Hamstring",
+                  "image": "https://cdn.shopify.com/s/files/1/1876/4703/articles/shutterstock_430434973_1600x.jpg?v=1587822776"
+               },
                "groupSets":[
                   {
                      "sets":2,
@@ -151,12 +173,14 @@
       {
          "id":"3",
          "name":"Full body",
-         "date":"2021-12-01",
+         "day":3,
          "status":0,
          "exercises":[
             {
-               "name":"Military Press",
-               "image": "https://www.bodybuilding.com/images/2017/may/6-tips-for-improving-your-overhead-press-header-v2-960x540.jpg",
+               "exercise": {
+                  "name": "Military Press",
+                  "image": "https://www.bodybuilding.com/images/2017/may/6-tips-for-improving-your-overhead-press-header-v2-960x540.jpg"
+               },
                "groupSets":[
                   {
                      "sets":3,
@@ -166,8 +190,10 @@
                ]
             },
             {
-               "name":"Reverse Fly",
-               "image": "https://i.ytimg.com/vi/Fgz_FdzDukE/maxresdefault.jpg",
+               "exercise": {
+                  "name": "Reverse Fly",
+                  "image": "https://i.ytimg.com/vi/Fgz_FdzDukE/maxresdefault.jpg"
+               },
                "groupSets":[
                   {
                      "sets":3,
@@ -177,8 +203,10 @@
                ]
             },
             {
-               "name":"RDL",
-               "image": "https://www.bodybuilding.com/images/2017/august/Romanian-Deadlifts-Training-The-Other-Half-Of-Your-Leg-header-v2-960x540.jpg",
+               "exercise": {
+                  "name": "RDL",
+                  "image": "https://www.bodybuilding.com/images/2017/august/Romanian-Deadlifts-Training-The-Other-Half-Of-Your-Leg-header-v2-960x540.jpg"
+               },
                "groupSets":[
                   {
                      "sets":3,
@@ -188,8 +216,10 @@
                ]
             },
             {
-               "name":"Bulgarian Squat",
-               "image": "https://cdn.muscleandstrength.com/sites/default/files/dumbbell-bulgarian-split-squat.jpg",
+               "exercise": {
+                  "name": "Bulgarian Squat",
+                  "image": "https://cdn.muscleandstrength.com/sites/default/files/dumbbell-bulgarian-split-squat.jpg"
+               },
                "groupSets":[
                   {
                      "sets":3,
@@ -199,8 +229,10 @@
                ]
             },
             {
-               "name":"Plank",
-               "image": "https://img.menzig.fit/a/1000/1410-h0.jpg",
+               "exercise": {
+                  "name": "Plank",
+                  "image": "https://img.menzig.fit/a/1000/1410-h0.jpg"
+               },
                "groupSets":[
                   {
                      "sets":3,

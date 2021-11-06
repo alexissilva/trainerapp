@@ -1,9 +1,9 @@
 package cl.alexissilva.trainerapp.ui.history
 
 import androidx.test.filters.SmallTest
-import cl.alexissilva.trainerapp.domain.Workout
-import cl.alexissilva.trainerapp.usecases.GetPastWorkouts
-import cl.alexissilva.trainerapp.utils.MainCoroutineRule
+import cl.alexissilva.trainerapp.testutils.DummyData
+import cl.alexissilva.trainerapp.usecases.GetWorkoutLogsWithWorkout
+import cl.alexissilva.trainerapp.testutils.MainCoroutineRule
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -21,21 +21,21 @@ class HistoryViewModelTest {
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
-    private val pastWorkouts = listOf(Workout("1", "s1"))
+    private val workoutLogs = listOf(DummyData.workoutLog, DummyData.workoutLog2)
     private lateinit var viewModel: HistoryViewModel
-    private lateinit var getPastWorkouts: GetPastWorkouts
+    private lateinit var getWorkoutLogsWithWorkout: GetWorkoutLogsWithWorkout
 
     @Before
     fun setUp() {
-        getPastWorkouts = mock {
-            on { invoke() } doReturn flowOf(pastWorkouts)
+        getWorkoutLogsWithWorkout = mock {
+            on { invoke() } doReturn flowOf(workoutLogs)
         }
-        viewModel = HistoryViewModel(getPastWorkouts)
+        viewModel = HistoryViewModel(getWorkoutLogsWithWorkout)
     }
 
     @Test
     fun setsPastWorkouts() {
-        val pastWorkouts = viewModel.pastWorkouts.value
+        val pastWorkouts = viewModel.workoutLogs.value
         assertThat(pastWorkouts).isEqualTo(pastWorkouts)
     }
 }

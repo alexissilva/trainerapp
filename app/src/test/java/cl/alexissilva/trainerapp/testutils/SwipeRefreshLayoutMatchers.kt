@@ -1,4 +1,4 @@
-package cl.alexissilva.trainerapp.utils
+package cl.alexissilva.trainerapp.testutils
 
 import android.view.View
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout

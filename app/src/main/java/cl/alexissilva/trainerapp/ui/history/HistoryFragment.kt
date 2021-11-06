@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import cl.alexissilva.trainerapp.databinding.FragmentHistoryBinding
 import cl.alexissilva.trainerapp.domain.WorkoutStatus
-import cl.alexissilva.trainerapp.ui.adapters.WorkoutsAdapter
+import cl.alexissilva.trainerapp.ui.adapters.LogsWithWorkoutAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -22,7 +22,7 @@ class HistoryFragment(
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
     private val viewModel get() = _viewModel!!
-    private val adapter by lazy { WorkoutsAdapter(requireContext(), true) }
+    private val adapter by lazy { LogsWithWorkoutAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,14 +47,18 @@ class HistoryFragment(
 
     private fun collectState() {
         lifecycleScope.launchWhenCreated {
-            viewModel.pastWorkouts.collect { pastWorkout ->
+            viewModel.workoutLogs.collect { logs ->
+
                 binding.doneTextView.text =
-                    pastWorkout.count { it.status == WorkoutStatus.DONE }.toString()
+                    logs.count { it.status == WorkoutStatus.DONE }.toString()
                 binding.skippedTextView.text =
-                    pastWorkout.count { it.status == WorkoutStatus.SKIPPED }.toString()
+                    logs.count { it.status == WorkoutStatus.SKIPPED }.toString()
+
+
                 binding.noPastWorkoutsTextView.visibility =
-                    if (pastWorkout.isEmpty()) View.VISIBLE else View.INVISIBLE
-                adapter.setWorkoutList(pastWorkout)
+                    if (logs.isEmpty()) View.VISIBLE else View.INVISIBLE
+
+                adapter.dataList = logs
             }
         }
     }

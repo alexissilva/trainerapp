@@ -1,6 +1,5 @@
 package cl.alexissilva.trainerapp.ui.workouts
 
-import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso.onView
@@ -11,8 +10,10 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import cl.alexissilva.trainerapp.R
+import cl.alexissilva.trainerapp.databinding.WorkoutRowItemBinding
 import cl.alexissilva.trainerapp.domain.Workout
-import cl.alexissilva.trainerapp.ui.adapters.WorkoutsAdapter
+import cl.alexissilva.trainerapp.testutils.launchFragmentInHiltContainer
+import cl.alexissilva.trainerapp.ui.base.RecyclerAdapterBinding
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Before
 import org.junit.Test
@@ -44,7 +45,7 @@ class WorkoutsFragmentTest {
 
     @Test
     fun showsWorkoutList() {
-        launchFragmentInContainer { WorkoutsFragment(viewModel) }
+        launchFragmentInHiltContainer { WorkoutsFragment(viewModel) }
         for (workout in workouts) {
             onView(withText(workout.name)).check(matches(isDisplayed()))
         }
@@ -54,19 +55,23 @@ class WorkoutsFragmentTest {
     fun showsNoWorkoutsText_whenWorkoutListIsEmpty() {
         val emptyFlow = MutableStateFlow(emptyList<Workout>())
         whenever(viewModel.workouts).thenReturn(emptyFlow)
-        launchFragmentInContainer { WorkoutsFragment(viewModel) }
+        launchFragmentInHiltContainer { WorkoutsFragment(viewModel) }
         onView(withId(R.id.noWorkouts_textView)).check(matches(isDisplayed()))
     }
 
     @Test
     fun navigatesToWorkoutDetails_onItemClick() {
         val navController = mock<NavController>()
-        val scenario = launchFragmentInContainer { WorkoutsFragment(viewModel) }
-        scenario.onFragment {
-            Navigation.setViewNavController(it.requireView(), navController)
-        }
+        launchFragmentInHiltContainer(
+            instantiate = { WorkoutsFragment(viewModel) },
+            onFragmentAction = {
+                Navigation.setViewNavController(this.requireView(), navController)
+            })
         onView(withId(R.id.workouts_recyclerView)).perform(
-            actionOnItemAtPosition<WorkoutsAdapter.ViewHolder>(1, click())
+            actionOnItemAtPosition<RecyclerAdapterBinding.ViewHolderBinding<WorkoutRowItemBinding>>(
+                1,
+                click()
+            )
         )
         verify(navController).navigate(
             WorkoutsFragmentDirections.actionWorkoutsFragmentToWorkoutDetailsActivity("1")

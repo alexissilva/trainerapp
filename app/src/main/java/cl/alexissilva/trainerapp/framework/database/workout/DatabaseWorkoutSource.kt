@@ -1,4 +1,4 @@
-package cl.alexissilva.trainerapp.framework.database
+package cl.alexissilva.trainerapp.framework.database.workout
 
 import cl.alexissilva.trainerapp.data.LocalWorkoutSource
 import cl.alexissilva.trainerapp.domain.Workout
@@ -9,7 +9,6 @@ class DatabaseWorkoutSource(
     private val workoutDao: WorkoutDao,
     private val workoutMap: WorkoutMap,
 ) : LocalWorkoutSource {
-
 
     override suspend fun save(workout: Workout) {
         val entity = workoutMap.toWorkoutEntity(workout)
@@ -44,6 +43,4 @@ class DatabaseWorkoutSource(
                 null
             }
     }
-
-
 }

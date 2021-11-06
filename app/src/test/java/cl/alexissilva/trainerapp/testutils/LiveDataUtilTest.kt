@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cl.alexissilva.trainerapp.utils
+package cl.alexissilva.trainerapp.testutils
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData

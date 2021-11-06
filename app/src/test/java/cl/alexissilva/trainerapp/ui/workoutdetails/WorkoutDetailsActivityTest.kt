@@ -10,8 +10,10 @@ import androidx.test.ext.junit.rules.activityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import cl.alexissilva.trainerapp.R
 import cl.alexissilva.trainerapp.domain.Workout
+import cl.alexissilva.trainerapp.testutils.DummyData
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -24,7 +26,7 @@ import java.time.LocalDate
 @RunWith(AndroidJUnit4::class)
 class WorkoutDetailsActivityTest {
 
-    private val workout = Workout("1", "dummy name", LocalDate.of(2020, 1, 1))
+    private val workout = DummyData.workout
 
     private val testingIntent = Intent(getApplicationContext(), WorkoutDetailsActivity::class.java)
         .apply { putExtra("isBeingTested", true) }
@@ -46,6 +48,6 @@ class WorkoutDetailsActivityTest {
         activityScenarioRule.scenario.onActivity {
             it.setupViewModel(viewModel)
         }
-        onView(withId(R.id.date_textView)).check(matches(withText("Wednesday, 1 January")))
+        onView(withId(R.id.day_textView)).check(matches(withText("Day 1")))
     }
 }

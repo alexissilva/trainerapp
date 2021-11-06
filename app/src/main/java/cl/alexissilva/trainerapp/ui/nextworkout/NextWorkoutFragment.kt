@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import cl.alexissilva.trainerapp.R
 import cl.alexissilva.trainerapp.databinding.FragmentNextWorkoutBinding
 import cl.alexissilva.trainerapp.domain.Workout
 import cl.alexissilva.trainerapp.domain.WorkoutStatus
@@ -15,8 +16,6 @@ import cl.alexissilva.trainerapp.ui.adapters.ExercisesAdapter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class NextWorkoutFragment(
@@ -26,10 +25,6 @@ class NextWorkoutFragment(
     private var _binding: FragmentNextWorkoutBinding? = null
     private val binding get() = _binding!!
     private val exercisesAdapter by lazy { ExercisesAdapter(requireContext()) }
-
-    companion object {
-        const val DATE_FORMAT = "EEEE, d MMMM"
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -58,7 +53,7 @@ class NextWorkoutFragment(
 
     private fun setupSwipeToRefresh() {
         binding.swipeRefreshLayout.setOnRefreshListener {
-            viewModel.downloadWorkouts()
+            viewModel.syncWorkouts()
         }
     }
 
@@ -83,7 +78,7 @@ class NextWorkoutFragment(
             viewModel.workout.collect {
                 if (it != null) {
                     binding.workoutNameTextView.text = it.name
-                    binding.dateTextView.text = formatDate(it.date)
+                    binding.dayTextView.text = getString(R.string.workout_day, it.day)
                     binding.exercisesTextView.text = it.exercises.size.toString()
                     binding.setsTextView.text = countSets(it).toString()
                     binding.repsTextView.text = countReps(it).toString()
@@ -100,10 +95,6 @@ class NextWorkoutFragment(
 
     private fun showSnackbar(message: String) {
         Snackbar.make(binding.swipeRefreshLayout, message, Snackbar.LENGTH_LONG).show()
-    }
-
-    private fun formatDate(date: LocalDate): String {
-        return date.format(DateTimeFormatter.ofPattern(DATE_FORMAT))
     }
 
     private fun countSets(workout: Workout): Int {

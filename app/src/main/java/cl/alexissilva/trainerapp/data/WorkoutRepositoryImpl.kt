@@ -1,11 +1,13 @@
 package cl.alexissilva.trainerapp.data
 
 import cl.alexissilva.trainerapp.domain.Workout
+import cl.alexissilva.trainerapp.domain.WorkoutLog
 import kotlinx.coroutines.flow.Flow
 
 class WorkoutRepositoryImpl(
     private val localSource: LocalWorkoutSource,
     private val remoteSource: RemoteWorkoutSource,
+    private val workoutLogSource: WorkoutLogSource,
 ) : WorkoutRepository {
 
     override suspend fun saveWorkout(workout: Workout) {
@@ -30,5 +32,29 @@ class WorkoutRepositoryImpl(
 
     override suspend fun getRemoteWorkouts(): RemoteResult<List<Workout>> {
         return remoteSource.getWorkouts()
+    }
+
+    override suspend fun saveWorkoutLog(workoutLog: WorkoutLog) {
+        return workoutLogSource.saveWorkoutLog(workoutLog)
+    }
+
+    override suspend fun deleteWorkoutLog(workoutLog: WorkoutLog) {
+        return workoutLogSource.deleteWorkoutLog(workoutLog)
+    }
+
+    override fun getWorkoutLogs(): Flow<List<WorkoutLog>> {
+        return workoutLogSource.getWorkoutLogs()
+    }
+
+    override fun getWorkoutLogById(workoutLogId: String): Flow<WorkoutLog?> {
+        return workoutLogSource.getWorkoutLogById(workoutLogId)
+    }
+
+    override fun getWorkoutLogByWorkoutId(workoutId: String): Flow<WorkoutLog?> {
+        return workoutLogSource.getWorkoutLogByWorkoutId(workoutId)
+    }
+
+    override fun getWorkoutLogsWithWorkout(): Flow<List<WorkoutLog>> {
+        return workoutLogSource.getWorkoutLogsWithWorkout()
     }
 }

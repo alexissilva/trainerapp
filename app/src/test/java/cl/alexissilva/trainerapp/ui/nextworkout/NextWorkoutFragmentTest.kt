@@ -1,18 +1,19 @@
 package cl.alexissilva.trainerapp.ui.nextworkout
 
-import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import cl.alexissilva.trainerapp.R
-import cl.alexissilva.trainerapp.domain.Exercise
 import cl.alexissilva.trainerapp.domain.GroupSet
 import cl.alexissilva.trainerapp.domain.Workout
+import cl.alexissilva.trainerapp.domain.WorkoutExercise
 import cl.alexissilva.trainerapp.domain.WorkoutStatus
-import cl.alexissilva.trainerapp.utils.SwipeRefreshLayoutMatchers.isRefreshing
-import cl.alexissilva.trainerapp.utils.simulateSwipeToRefresh
+import cl.alexissilva.trainerapp.testutils.DummyData
+import cl.alexissilva.trainerapp.testutils.SwipeRefreshLayoutMatchers.isRefreshing
+import cl.alexissilva.trainerapp.testutils.launchFragmentInHiltContainer
+import cl.alexissilva.trainerapp.testutils.simulateSwipeToRefresh
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.hamcrest.Matchers.not
 import org.junit.Before
@@ -23,17 +24,16 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
-import java.time.LocalDate
 
 @Config(instrumentedPackages = ["androidx.loader.content"])
 @RunWith(AndroidJUnit4::class)
 class NextWorkoutFragmentTest {
 
     private val exercises = listOf(
-        Exercise("Exercise1", groupSets = listOf(GroupSet(3, 10))),
-        Exercise("Exercise2", groupSets = listOf(GroupSet(3, 10))),
+        WorkoutExercise(DummyData.exercise, groupSets = listOf(GroupSet(3, 10))),
+        WorkoutExercise(DummyData.exercise2, groupSets = listOf(GroupSet(3, 10))),
     )
-    private val workout = Workout("1", "Workout", LocalDate.of(2020, 1, 1), exercises)
+    private val workout = Workout("1", "Workout", 1, exercises)
     private lateinit var viewModel: NextWorkoutViewModel
 
     @Before
@@ -45,10 +45,12 @@ class NextWorkoutFragmentTest {
         }
     }
 
-    private fun launchFragment() =
-        launchFragmentInContainer(themeResId = R.style.Theme_TrainerApp) {
-            NextWorkoutFragment(viewModel)
-        }
+    private fun launchFragment(action: NextWorkoutFragment.() -> Unit = {}) =
+        launchFragmentInHiltContainer(
+            themeResId = R.style.Theme_TrainerApp,
+            instantiate = { NextWorkoutFragment(viewModel) },
+            onFragmentAction = action
+        )
 
     @Test
     fun updatesWorkoutStatus_onPressDone() {
@@ -66,11 +68,10 @@ class NextWorkoutFragmentTest {
 
     @Test
     fun downloadsWorkouts_onSwipeDown() {
-        val scenario = launchFragment()
-        scenario.onFragment {
-            it.simulateSwipeToRefresh(R.id.swipeRefreshLayout)
+        launchFragment {
+            this.simulateSwipeToRefresh(R.id.swipeRefreshLayout)
         }
-        verify(viewModel).downloadWorkouts()
+        verify(viewModel).syncWorkouts()
     }
 
     @Test
@@ -78,14 +79,8 @@ class NextWorkoutFragmentTest {
         launchFragment()
         onView(withId(R.id.workoutName_textView)).check(matches(withText(workout.name)))
         for (exercise in exercises) {
-            onView(withText(exercise.name)).check(matches(isDisplayed()))
+            onView(withText(exercise.exercise.name)).check(matches(isDisplayed()))
         }
-    }
-
-    @Test
-    fun formatsWorkoutDate() {
-        launchFragment()
-        onView(withId(R.id.date_textView)).check(matches(withText("Wednesday, 1 January")))
     }
 
     @Test
