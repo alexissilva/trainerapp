@@ -3,7 +3,7 @@ package cl.alexissilva.trainerapp.framework.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import cl.alexissilva.trainerapp.domain.WorkoutLog
+import cl.alexissilva.trainerapp.core.domain.WorkoutLog
 import cl.alexissilva.trainerapp.framework.database.workout.WorkoutConverters
 import cl.alexissilva.trainerapp.framework.database.workout.WorkoutDao
 import cl.alexissilva.trainerapp.framework.database.workout.WorkoutEntity

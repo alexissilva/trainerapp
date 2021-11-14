@@ -1,7 +1,7 @@
 package cl.alexissilva.trainerapp.framework.database.workoutlog
 
-import cl.alexissilva.trainerapp.data.WorkoutLogSource
-import cl.alexissilva.trainerapp.domain.WorkoutLog
+import cl.alexissilva.trainerapp.core.data.WorkoutLogSource
+import cl.alexissilva.trainerapp.core.domain.WorkoutLog
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

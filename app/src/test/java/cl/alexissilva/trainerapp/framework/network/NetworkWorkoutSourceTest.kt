@@ -1,8 +1,8 @@
 package cl.alexissilva.trainerapp.framework.network
 
 import androidx.test.filters.SmallTest
-import cl.alexissilva.trainerapp.data.RemoteResult
-import cl.alexissilva.trainerapp.testutils.DummyData
+import cl.alexissilva.trainerapp.core.data.RemoteResult
+import cl.alexissilva.trainerapp.core.testutils.DummyData
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest

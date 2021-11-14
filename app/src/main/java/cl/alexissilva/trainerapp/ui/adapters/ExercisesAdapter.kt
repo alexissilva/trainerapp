@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cl.alexissilva.trainerapp.databinding.ExerciseRowItemBinding
-import cl.alexissilva.trainerapp.domain.WorkoutExercise
+import cl.alexissilva.trainerapp.core.domain.WorkoutExercise
 import cl.alexissilva.trainerapp.ui.DefaultDiffUtil
 import com.bumptech.glide.Glide
 

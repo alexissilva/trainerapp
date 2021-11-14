@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import cl.alexissilva.trainerapp.R
-import cl.alexissilva.trainerapp.domain.WorkoutExercise
-import cl.alexissilva.trainerapp.testutils.DummyData
+import cl.alexissilva.trainerapp.core.domain.WorkoutExercise
+import cl.alexissilva.trainerapp.core.testutils.DummyData
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test

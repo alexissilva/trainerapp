@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import cl.alexissilva.trainerapp.R
 import cl.alexissilva.trainerapp.databinding.WorkoutLogRowItemBinding
-import cl.alexissilva.trainerapp.domain.WorkoutLog
-import cl.alexissilva.trainerapp.domain.WorkoutStatus
+import cl.alexissilva.trainerapp.core.domain.WorkoutLog
+import cl.alexissilva.trainerapp.core.domain.WorkoutStatus
 import cl.alexissilva.trainerapp.ui.base.RecyclerAdapterBindingList
 import com.bumptech.glide.Glide
 import java.time.format.DateTimeFormatter

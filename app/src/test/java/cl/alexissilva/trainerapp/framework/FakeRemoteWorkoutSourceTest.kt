@@ -3,7 +3,7 @@ package cl.alexissilva.trainerapp.framework
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import cl.alexissilva.trainerapp.data.RemoteResult
+import cl.alexissilva.trainerapp.core.data.RemoteResult
 import com.google.common.truth.Truth.assertThat
 import com.google.gson.Gson
 import dagger.hilt.android.testing.HiltAndroidRule

@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import cl.alexissilva.trainerapp.R
 import cl.alexissilva.trainerapp.databinding.WorkoutRowItemBinding
-import cl.alexissilva.trainerapp.domain.Workout
+import cl.alexissilva.trainerapp.core.domain.Workout
 import cl.alexissilva.trainerapp.ui.base.RecyclerAdapterBindingList
 
 class WorkoutsAdapter(

@@ -5,9 +5,9 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import cl.alexissilva.trainerapp.R
-import cl.alexissilva.trainerapp.domain.WorkoutLog
-import cl.alexissilva.trainerapp.domain.WorkoutStatus
-import cl.alexissilva.trainerapp.testutils.DummyData
+import cl.alexissilva.trainerapp.core.domain.WorkoutLog
+import cl.alexissilva.trainerapp.core.domain.WorkoutStatus
+import cl.alexissilva.trainerapp.core.testutils.DummyData
 import cl.alexissilva.trainerapp.testutils.launchFragmentInHiltContainer
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Before

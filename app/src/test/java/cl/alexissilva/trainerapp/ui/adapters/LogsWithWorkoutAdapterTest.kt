@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import cl.alexissilva.trainerapp.R
-import cl.alexissilva.trainerapp.domain.WorkoutLog
+import cl.alexissilva.trainerapp.core.domain.WorkoutLog
 import cl.alexissilva.trainerapp.testutils.AdapterTestUtils.getBoundViewHolder
-import cl.alexissilva.trainerapp.testutils.DummyData
+import cl.alexissilva.trainerapp.core.testutils.DummyData
 import com.google.common.truth.Truth.assertThat
 
 import org.junit.Before

@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import cl.alexissilva.trainerapp.databinding.FragmentWorkoutsBinding
-import cl.alexissilva.trainerapp.domain.Workout
+import cl.alexissilva.trainerapp.core.domain.Workout
 import cl.alexissilva.trainerapp.ui.adapters.WorkoutsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect

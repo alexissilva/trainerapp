@@ -4,8 +4,8 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
-import cl.alexissilva.trainerapp.domain.ExerciseLog
-import cl.alexissilva.trainerapp.domain.WorkoutStatus
+import cl.alexissilva.trainerapp.core.domain.ExerciseLog
+import cl.alexissilva.trainerapp.core.domain.WorkoutStatus
 import cl.alexissilva.trainerapp.framework.database.workout.WorkoutEntity
 import java.time.LocalDateTime
 

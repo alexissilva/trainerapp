@@ -2,9 +2,9 @@ package cl.alexissilva.trainerapp.framework
 
 import android.content.Context
 import android.util.Log
-import cl.alexissilva.trainerapp.data.RemoteResult
-import cl.alexissilva.trainerapp.data.RemoteWorkoutSource
-import cl.alexissilva.trainerapp.domain.Workout
+import cl.alexissilva.trainerapp.core.data.RemoteResult
+import cl.alexissilva.trainerapp.core.data.RemoteWorkoutSource
+import cl.alexissilva.trainerapp.core.domain.Workout
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.qualifiers.ApplicationContext

@@ -1,15 +1,15 @@
 package cl.alexissilva.trainerapp.ui.nextworkout
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import cl.alexissilva.trainerapp.data.RemoteResult
-import cl.alexissilva.trainerapp.domain.Workout
-import cl.alexissilva.trainerapp.domain.WorkoutStatus
-import cl.alexissilva.trainerapp.testutils.DummyData
+import cl.alexissilva.trainerapp.core.data.RemoteResult
+import cl.alexissilva.trainerapp.core.domain.Workout
+import cl.alexissilva.trainerapp.core.domain.WorkoutStatus
+import cl.alexissilva.trainerapp.core.testutils.DummyData
 import cl.alexissilva.trainerapp.testutils.MainCoroutineRule
 import cl.alexissilva.trainerapp.testutils.TestCoroutineContextProvider
-import cl.alexissilva.trainerapp.usecases.DownloadWorkouts
-import cl.alexissilva.trainerapp.usecases.GetNextWorkout
-import cl.alexissilva.trainerapp.usecases.UpdateWorkoutStatus
+import cl.alexissilva.trainerapp.core.usecases.DownloadWorkouts
+import cl.alexissilva.trainerapp.core.usecases.GetNextWorkout
+import cl.alexissilva.trainerapp.core.usecases.UpdateWorkoutStatus
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow

@@ -1,7 +1,7 @@
 package cl.alexissilva.trainerapp.ui.workouts
 
-import cl.alexissilva.trainerapp.domain.Workout
-import cl.alexissilva.trainerapp.usecases.GetUpcomingWorkouts
+import cl.alexissilva.trainerapp.core.domain.Workout
+import cl.alexissilva.trainerapp.core.usecases.GetUpcomingWorkouts
 import cl.alexissilva.trainerapp.testutils.MainCoroutineRule
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi

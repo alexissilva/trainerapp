@@ -1,6 +1,7 @@
 package cl.alexissilva.trainerapp.framework.database.workoutlog
 
-import cl.alexissilva.trainerapp.testutils.DummyData
+import cl.alexissilva.trainerapp.core.testutils.DummyData
+import cl.alexissilva.trainerapp.testutils.AppDummyData
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -18,7 +19,7 @@ import org.mockito.kotlin.whenever
 @RunWith(MockitoJUnitRunner::class)
 class DatabaseWorkoutLogSourceTest {
     private val log = DummyData.workoutLog
-    private val logEntity = DummyData.workoutLogEntity
+    private val logEntity = AppDummyData.workoutLogEntity
 
     private lateinit var logSource: DatabaseWorkoutLogSource
 

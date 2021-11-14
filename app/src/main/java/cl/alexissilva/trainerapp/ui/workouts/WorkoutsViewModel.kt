@@ -2,7 +2,7 @@ package cl.alexissilva.trainerapp.ui.workouts
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cl.alexissilva.trainerapp.usecases.GetUpcomingWorkouts
+import cl.alexissilva.trainerapp.core.usecases.GetUpcomingWorkouts
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn

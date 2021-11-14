@@ -4,7 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import cl.alexissilva.trainerapp.framework.database.AppDatabase
-import cl.alexissilva.trainerapp.testutils.DummyData
+import cl.alexissilva.trainerapp.core.testutils.DummyData
+import cl.alexissilva.trainerapp.testutils.AppDummyData
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -27,8 +28,8 @@ import javax.inject.Named
 @Config(application = HiltTestApplication::class)
 @RunWith(AndroidJUnit4::class)
 class WorkoutDaoTest {
-    private val workoutEntity = DummyData.workoutEntity
-    private val workoutEntity2 = DummyData.workoutEntity2
+    private val workoutEntity = AppDummyData.workoutEntity
+    private val workoutEntity2 = AppDummyData.workoutEntity2
 
 
     @get:Rule

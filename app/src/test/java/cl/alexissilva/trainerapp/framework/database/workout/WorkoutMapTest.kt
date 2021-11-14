@@ -1,7 +1,8 @@
 package cl.alexissilva.trainerapp.framework.database.workout
 
-import cl.alexissilva.trainerapp.domain.Workout
-import cl.alexissilva.trainerapp.testutils.DummyData
+import cl.alexissilva.trainerapp.core.domain.Workout
+import cl.alexissilva.trainerapp.core.testutils.DummyData
+import cl.alexissilva.trainerapp.testutils.AppDummyData
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test
@@ -10,7 +11,7 @@ import org.junit.Test
 class WorkoutMapTest {
 
     private val workout = DummyData.workout
-    private val workoutEntity = DummyData.workoutEntity
+    private val workoutEntity = AppDummyData.workoutEntity
     private lateinit var workoutMap: WorkoutMap
 
     @Before

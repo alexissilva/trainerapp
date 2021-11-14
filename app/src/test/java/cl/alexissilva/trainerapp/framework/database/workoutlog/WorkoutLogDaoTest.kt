@@ -2,9 +2,9 @@ package cl.alexissilva.trainerapp.framework.database.workoutlog
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import cl.alexissilva.trainerapp.domain.WorkoutStatus
+import cl.alexissilva.trainerapp.core.domain.WorkoutStatus
 import cl.alexissilva.trainerapp.framework.database.AppDatabase
-import cl.alexissilva.trainerapp.testutils.DummyData
+import cl.alexissilva.trainerapp.testutils.AppDummyData
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -28,8 +28,8 @@ import javax.inject.Named
 @RunWith(AndroidJUnit4::class)
 class WorkoutLogDaoTest {
 
-    private val logEntity = DummyData.workoutLogEntity
-    private val logEntity2 = DummyData.workoutLogEntity2
+    private val logEntity = AppDummyData.workoutLogEntity
+    private val logEntity2 = AppDummyData.workoutLogEntity2
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)

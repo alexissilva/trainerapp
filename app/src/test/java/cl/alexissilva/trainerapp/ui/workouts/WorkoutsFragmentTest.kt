@@ -11,7 +11,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import cl.alexissilva.trainerapp.R
 import cl.alexissilva.trainerapp.databinding.WorkoutRowItemBinding
-import cl.alexissilva.trainerapp.domain.Workout
+import cl.alexissilva.trainerapp.core.domain.Workout
 import cl.alexissilva.trainerapp.testutils.launchFragmentInHiltContainer
 import cl.alexissilva.trainerapp.ui.base.RecyclerAdapterBinding
 import kotlinx.coroutines.flow.MutableStateFlow

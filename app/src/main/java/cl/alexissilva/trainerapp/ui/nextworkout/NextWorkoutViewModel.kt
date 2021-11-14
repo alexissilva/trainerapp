@@ -2,13 +2,13 @@ package cl.alexissilva.trainerapp.ui.nextworkout
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cl.alexissilva.trainerapp.data.RemoteResult
-import cl.alexissilva.trainerapp.domain.Workout
-import cl.alexissilva.trainerapp.domain.WorkoutStatus
-import cl.alexissilva.trainerapp.usecases.DeleteWorkoutLogs
-import cl.alexissilva.trainerapp.usecases.DownloadWorkouts
-import cl.alexissilva.trainerapp.usecases.GetNextWorkout
-import cl.alexissilva.trainerapp.usecases.UpdateWorkoutStatus
+import cl.alexissilva.trainerapp.core.data.RemoteResult
+import cl.alexissilva.trainerapp.core.domain.Workout
+import cl.alexissilva.trainerapp.core.domain.WorkoutStatus
+import cl.alexissilva.trainerapp.core.usecases.DeleteWorkoutLogs
+import cl.alexissilva.trainerapp.core.usecases.DownloadWorkouts
+import cl.alexissilva.trainerapp.core.usecases.GetNextWorkout
+import cl.alexissilva.trainerapp.core.usecases.UpdateWorkoutStatus
 import cl.alexissilva.trainerapp.utils.CoroutineContextProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

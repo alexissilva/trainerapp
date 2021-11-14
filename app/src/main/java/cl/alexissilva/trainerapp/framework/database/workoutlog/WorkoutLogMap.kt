@@ -1,6 +1,6 @@
 package cl.alexissilva.trainerapp.framework.database.workoutlog
 
-import cl.alexissilva.trainerapp.domain.WorkoutLog
+import cl.alexissilva.trainerapp.core.domain.WorkoutLog
 import cl.alexissilva.trainerapp.framework.database.workout.WorkoutMap
 
 class WorkoutLogMap {

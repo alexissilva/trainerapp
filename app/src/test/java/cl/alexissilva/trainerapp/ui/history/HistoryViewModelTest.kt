@@ -1,8 +1,8 @@
 package cl.alexissilva.trainerapp.ui.history
 
 import androidx.test.filters.SmallTest
-import cl.alexissilva.trainerapp.testutils.DummyData
-import cl.alexissilva.trainerapp.usecases.GetWorkoutLogsWithWorkout
+import cl.alexissilva.trainerapp.core.testutils.DummyData
+import cl.alexissilva.trainerapp.core.usecases.GetWorkoutLogsWithWorkout
 import cl.alexissilva.trainerapp.testutils.MainCoroutineRule
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -6,11 +6,11 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import cl.alexissilva.trainerapp.R
-import cl.alexissilva.trainerapp.domain.GroupSet
-import cl.alexissilva.trainerapp.domain.Workout
-import cl.alexissilva.trainerapp.domain.WorkoutExercise
-import cl.alexissilva.trainerapp.domain.WorkoutStatus
-import cl.alexissilva.trainerapp.testutils.DummyData
+import cl.alexissilva.trainerapp.core.domain.GroupSet
+import cl.alexissilva.trainerapp.core.domain.Workout
+import cl.alexissilva.trainerapp.core.domain.WorkoutExercise
+import cl.alexissilva.trainerapp.core.domain.WorkoutStatus
+import cl.alexissilva.trainerapp.core.testutils.DummyData
 import cl.alexissilva.trainerapp.testutils.SwipeRefreshLayoutMatchers.isRefreshing
 import cl.alexissilva.trainerapp.testutils.launchFragmentInHiltContainer
 import cl.alexissilva.trainerapp.testutils.simulateSwipeToRefresh

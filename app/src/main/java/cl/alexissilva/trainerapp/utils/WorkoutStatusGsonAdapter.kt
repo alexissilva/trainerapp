@@ -1,6 +1,6 @@
 package cl.alexissilva.trainerapp.utils
 
-import cl.alexissilva.trainerapp.domain.WorkoutStatus
+import cl.alexissilva.trainerapp.core.domain.WorkoutStatus
 import com.google.gson.*
 import java.lang.reflect.Type
 

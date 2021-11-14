@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import cl.alexissilva.trainerapp.databinding.GroupSetRowItemBinding
-import cl.alexissilva.trainerapp.domain.GroupSet
+import cl.alexissilva.trainerapp.core.domain.GroupSet
 
 class GroupSetsAdapter(private val groupSetList: List<GroupSet>) :
     RecyclerView.Adapter<GroupSetsAdapter.ViewHolder>() {

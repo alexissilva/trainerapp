@@ -2,8 +2,8 @@ package cl.alexissilva.trainerapp.di
 
 import android.content.Context
 import androidx.room.Room
-import cl.alexissilva.trainerapp.data.*
-import cl.alexissilva.trainerapp.domain.WorkoutStatus
+import cl.alexissilva.trainerapp.core.data.*
+import cl.alexissilva.trainerapp.core.domain.WorkoutStatus
 import cl.alexissilva.trainerapp.framework.FakeRemoteWorkoutSource
 import cl.alexissilva.trainerapp.framework.database.AppDatabase
 import cl.alexissilva.trainerapp.framework.database.workout.DatabaseWorkoutSource
@@ -36,77 +36,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideWorkoutRepository(
-        localSource: LocalWorkoutSource,
-        remoteSource: RemoteWorkoutSource,
-        workoutLogSource: WorkoutLogSource,
-    ): WorkoutRepository = WorkoutRepositoryImpl(localSource, remoteSource, workoutLogSource)
-
-    @Singleton
-    @Provides
-    fun provideLocalWorkoutSource(
-        database: AppDatabase,
-    ): LocalWorkoutSource {
-        return DatabaseWorkoutSource(database.workoutDao(), WorkoutMap())
-    }
-
-    @Singleton
-    @Provides
-    fun provideWorkoutLogSource(
-        database: AppDatabase,
-    ): WorkoutLogSource {
-        return DatabaseWorkoutLogSource(database.workoutLogDao(), WorkoutLogMap())
-    }
-
-    @Singleton
-    @Provides
-    fun provideDatabase(
-        @ApplicationContext context: Context
-    ): AppDatabase {
-        return Room.databaseBuilder(
-            context,
-            AppDatabase::class.java,
-            DATABASE_NAME,
-        ).build()
-    }
-
-    @Singleton
-    @Provides
-    fun provideRemoteWorkoutSource(
-        networkSource: NetworkWorkoutSource,
-        fakeSource: FakeRemoteWorkoutSource,
-    ): RemoteWorkoutSource {
-        return if (USE_FAKE_REMOTE) {
-            fakeSource
-        } else {
-            networkSource
-        }
-    }
-
-    @Singleton
-    @Provides
-    fun provideWorkoutApi(gson: Gson): WorkoutApi {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
-        return retrofit.create(WorkoutApi::class.java)
-    }
-
-    @Singleton
-    @Provides
-    fun provideGson(): Gson {
-        return GsonBuilder()
-            .registerTypeAdapter(LocalDate::class.java, LocalDateGsonAdapter())
-            .registerTypeAdapter(WorkoutStatus::class.java, WorkoutStatusGsonAdapter())
-            .create()
-    }
-
-
-    @Singleton
-    @Provides
     fun provideClock(): Clock {
         return Clock.systemDefaultZone()
     }
-
 }

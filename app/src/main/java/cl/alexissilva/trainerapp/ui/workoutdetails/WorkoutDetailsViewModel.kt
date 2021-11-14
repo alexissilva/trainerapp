@@ -3,7 +3,7 @@ package cl.alexissilva.trainerapp.ui.workoutdetails
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cl.alexissilva.trainerapp.usecases.GetLocalWorkout
+import cl.alexissilva.trainerapp.core.usecases.GetLocalWorkout
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn

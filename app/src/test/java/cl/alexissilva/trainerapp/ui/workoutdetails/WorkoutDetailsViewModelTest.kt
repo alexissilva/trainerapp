@@ -2,8 +2,8 @@ package cl.alexissilva.trainerapp.ui.workoutdetails
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.test.filters.SmallTest
-import cl.alexissilva.trainerapp.domain.Workout
-import cl.alexissilva.trainerapp.usecases.GetLocalWorkout
+import cl.alexissilva.trainerapp.core.domain.Workout
+import cl.alexissilva.trainerapp.core.usecases.GetLocalWorkout
 import cl.alexissilva.trainerapp.testutils.MainCoroutineRule
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi

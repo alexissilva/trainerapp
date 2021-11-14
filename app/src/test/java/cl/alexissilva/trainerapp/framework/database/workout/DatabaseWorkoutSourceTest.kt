@@ -2,7 +2,8 @@ package cl.alexissilva.trainerapp.framework.database.workout
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
-import cl.alexissilva.trainerapp.testutils.DummyData
+import cl.alexissilva.trainerapp.core.testutils.DummyData
+import cl.alexissilva.trainerapp.testutils.AppDummyData
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -23,7 +24,7 @@ import org.mockito.kotlin.whenever
 class DatabaseWorkoutSourceTest {
 
     private val workout = DummyData.workout
-    private val workoutEntity = DummyData.workoutEntity
+    private val workoutEntity = AppDummyData.workoutEntity
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()

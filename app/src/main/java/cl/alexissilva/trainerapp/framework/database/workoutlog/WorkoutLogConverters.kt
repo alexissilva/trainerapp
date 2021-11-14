@@ -1,8 +1,8 @@
 package cl.alexissilva.trainerapp.framework.database.workoutlog
 
 import androidx.room.TypeConverter
-import cl.alexissilva.trainerapp.domain.ExerciseLog
-import cl.alexissilva.trainerapp.domain.WorkoutStatus
+import cl.alexissilva.trainerapp.core.domain.ExerciseLog
+import cl.alexissilva.trainerapp.core.domain.WorkoutStatus
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.time.LocalDateTime

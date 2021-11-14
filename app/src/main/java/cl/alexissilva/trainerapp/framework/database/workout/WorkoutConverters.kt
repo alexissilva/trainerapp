@@ -1,7 +1,7 @@
 package cl.alexissilva.trainerapp.framework.database.workout
 
 import androidx.room.TypeConverter
-import cl.alexissilva.trainerapp.domain.WorkoutExercise
+import cl.alexissilva.trainerapp.core.domain.WorkoutExercise
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.time.LocalDate
