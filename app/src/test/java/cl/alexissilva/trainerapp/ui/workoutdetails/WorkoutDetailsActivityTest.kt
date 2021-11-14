@@ -9,24 +9,21 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.activityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import cl.alexissilva.trainerapp.R
-import cl.alexissilva.trainerapp.domain.Workout
 import cl.alexissilva.trainerapp.testutils.DummyData
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.robolectric.annotation.Config
-import java.time.LocalDate
 
 @Config(instrumentedPackages = ["androidx.loader.content"])
 @RunWith(AndroidJUnit4::class)
 class WorkoutDetailsActivityTest {
 
-    private val workout = DummyData.workout
+    private val workout = DummyData.workout.copy(day = 1)
 
     private val testingIntent = Intent(getApplicationContext(), WorkoutDetailsActivity::class.java)
         .apply { putExtra("isBeingTested", true) }

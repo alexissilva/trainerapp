@@ -1,6 +1,7 @@
 package cl.alexissilva.trainerapp.framework
 
 import android.content.Context
+import android.util.Log
 import cl.alexissilva.trainerapp.data.RemoteResult
 import cl.alexissilva.trainerapp.data.RemoteWorkoutSource
 import cl.alexissilva.trainerapp.domain.Workout
@@ -23,6 +24,7 @@ class FakeRemoteWorkoutSource @Inject constructor(
             val workoutList = gson.fromJson(json, listType) as List<Workout>
             RemoteResult.Success(workoutList)
         } catch (e: Exception) {
+            Log.w("FakeRemoteWorkoutSource", "Exception $e")
             RemoteResult.Error("FakeRemoteError", null, e)
         }
     }

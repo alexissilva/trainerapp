@@ -1,246 +1,244 @@
-{
-  "workouts":[
-    {
-      "id":"1",
-      "name":"Upper body!",
-      "day":1,
-      "status":0,
-      "exercises":[
-        {
-          "exercise": {
-            "name":"Bench press",
-            "image":"https://blog.nasm.org/hubfs/bench-press-form.jpg"
-          },
-          "groupSets":[
-            {
-              "sets":2,
-              "reps":10,
-              "intensity":"70%"
-            },
-            {
-              "sets":2,
-              "reps":6,
-              "intensity":"80%"
-            }
-          ]
+[
+  {
+    "id": "1",
+    "name": "Upper body!",
+    "day": 1,
+    "status": 0,
+    "exercises": [
+      {
+        "exercise": {
+          "name": "Bench press",
+          "image": "https://blog.nasm.org/hubfs/bench-press-form.jpg"
         },
-        {
-          "exercise": {
-            "name":"Pull-ups",
-            "image":"https://media.gq.com.mx/photos/5c5dc4e8d47f8c96e4fd3e0d/16:9/w_1920,c_limit/pull%20ups.jpg"
+        "groupSets": [
+          {
+            "sets": 2,
+            "reps": 10,
+            "intensity": "70%"
           },
-          "groupSets":[
-            {
-              "sets":3,
-              "reps":6,
-              "intensity":"RIR 2"
-            }
-          ]
+          {
+            "sets": 2,
+            "reps": 6,
+            "intensity": "80%"
+          }
+        ]
+      },
+      {
+        "exercise": {
+          "name": "Pull-ups",
+          "image": "https://media.gq.com.mx/photos/5c5dc4e8d47f8c96e4fd3e0d/16:9/w_1920,c_limit/pull%20ups.jpg"
         },
-        {
-          "exercise": {
-            "name": "Dips",
-            "image": "https://i.ytimg.com/vi/wjUmnZH528Y/maxresdefault.jpg"
-          },
-          "groupSets":[
-            {
-              "sets":3,
-              "reps":12,
-              "intensity":"RIR 2"
-            }
-          ]
+        "groupSets": [
+          {
+            "sets": 3,
+            "reps": 6,
+            "intensity": "RIR 2"
+          }
+        ]
+      },
+      {
+        "exercise": {
+          "name": "Dips",
+          "image": "https://i.ytimg.com/vi/wjUmnZH528Y/maxresdefault.jpg"
         },
-        {
-          "exercise": {
-            "name": "Barbell Rows",
-            "image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/weightlifting-1549907101.jpg"
-          },
-          "groupSets":[
-            {
-              "sets":3,
-              "reps":12,
-              "intensity":"RIR 2"
-            }
-          ]
+        "groupSets": [
+          {
+            "sets": 3,
+            "reps": 12,
+            "intensity": "RIR 2"
+          }
+        ]
+      },
+      {
+        "exercise": {
+          "name": "Barbell Rows",
+          "image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/weightlifting-1549907101.jpg"
         },
-        {
-          "exercise": {
-            "name": "Biceps curl",
-            "image": "https://i.ytimg.com/vi/in7PaeYlhrM/maxresdefault.jpg"
-          },
-          "groupSets":[
-            {
-              "sets":2,
-              "reps":15,
-              "intensity":"RIR 0-1"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id":"2",
-      "name":"Lower body",
-      "day":2,
-      "status":0,
-      "exercises":[
-        {
-          "exercise": {
-            "name": "Back squat",
-            "image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/articles/2016/03/pause-squats-1487260284.jpg"
-          },
-          "groupSets":[
-            {
-              "sets":4,
-              "reps":6,
-              "intensity":"70%"
-            },
-            {
-              "sets":1,
-              "reps":3,
-              "intensity":"80%"
-            },
-            {
-              "sets":1,
-              "reps":1,
-              "intensity":"90%"
-            }
-          ]
+        "groupSets": [
+          {
+            "sets": 3,
+            "reps": 12,
+            "intensity": "RIR 2"
+          }
+        ]
+      },
+      {
+        "exercise": {
+          "name": "Biceps curl",
+          "image": "https://i.ytimg.com/vi/in7PaeYlhrM/maxresdefault.jpg"
         },
-        {
-          "exercise": {
-            "name": "Deadlift",
-            "image": "https://barbend.com/wp-content/uploads/2016/12/BarBend-Feature-Image-1200-x-675-2021-04-07T141449.522.jpg"
-          },
-          "groupSets":[
-            {
-              "sets":3,
-              "reps":8,
-              "intensity":"RIR 3"
-            }
-          ]
+        "groupSets": [
+          {
+            "sets": 2,
+            "reps": 15,
+            "intensity": "RIR 0-1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Lower body",
+    "day": 2,
+    "status": 0,
+    "exercises": [
+      {
+        "exercise": {
+          "name": "Back squat",
+          "image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/articles/2016/03/pause-squats-1487260284.jpg"
         },
-        {
-          "exercise": {
-            "name": "Lunges",
-            "image": "https://fitenium.com/wp-content/uploads/2021/02/Lunge-with-Barbell.jpg"
+        "groupSets": [
+          {
+            "sets": 4,
+            "reps": 6,
+            "intensity": "70%"
           },
-          "groupSets":[
-            {
-              "sets":2,
-              "reps":30
-            }
-          ]
+          {
+            "sets": 1,
+            "reps": 3,
+            "intensity": "80%"
+          },
+          {
+            "sets": 1,
+            "reps": 1,
+            "intensity": "90%"
+          }
+        ]
+      },
+      {
+        "exercise": {
+          "name": "Deadlift",
+          "image": "https://barbend.com/wp-content/uploads/2016/12/BarBend-Feature-Image-1200-x-675-2021-04-07T141449.522.jpg"
         },
-        {
-          "exercise": {
-            "name": "Hip Thrust",
-            "image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hip-thrust-1571064255.jpg"
-          },
-          "groupSets":[
-            {
-              "sets":3,
-              "reps":8
-            }
-          ]
+        "groupSets": [
+          {
+            "sets": 3,
+            "reps": 8,
+            "intensity": "RIR 3"
+          }
+        ]
+      },
+      {
+        "exercise": {
+          "name": "Lunges",
+          "image": "https://fitenium.com/wp-content/uploads/2021/02/Lunge-with-Barbell.jpg"
         },
-        {
-          "exercise": {
-            "name": "Calf Raises",
-            "image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/trained-legs-with-muscular-calves-in-sneakers-in-royalty-free-image-1617795445."
-          },
-          "groupSets":[
-            {
-              "sets":2,
-              "reps":20
-            }
-          ]
+        "groupSets": [
+          {
+            "sets": 2,
+            "reps": 30
+          }
+        ]
+      },
+      {
+        "exercise": {
+          "name": "Hip Thrust",
+          "image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hip-thrust-1571064255.jpg"
         },
-        {
-          "exercise": {
-            "name": "Curl Hamstring",
-            "image": "https://cdn.shopify.com/s/files/1/1876/4703/articles/shutterstock_430434973_1600x.jpg?v=1587822776"
-          },
-          "groupSets":[
-            {
-              "sets":2,
-              "reps":20
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id":"3",
-      "name":"Full body",
-      "day":3,
-      "status":0,
-      "exercises":[
-        {
-          "exercise": {
-            "name": "Military Press",
-            "image": "https://www.bodybuilding.com/images/2017/may/6-tips-for-improving-your-overhead-press-header-v2-960x540.jpg"
-          },
-          "groupSets":[
-            {
-              "sets":3,
-              "reps":10,
-              "intensity":"RIR 2"
-            }
-          ]
+        "groupSets": [
+          {
+            "sets": 3,
+            "reps": 8
+          }
+        ]
+      },
+      {
+        "exercise": {
+          "name": "Calf Raises",
+          "image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/trained-legs-with-muscular-calves-in-sneakers-in-royalty-free-image-1617795445."
         },
-        {
-          "exercise": {
-            "name": "Reverse Fly",
-            "image": "https://i.ytimg.com/vi/Fgz_FdzDukE/maxresdefault.jpg"
-          },
-          "groupSets":[
-            {
-              "sets":3,
-              "reps":10,
-              "intensity":"RIR 2"
-            }
-          ]
+        "groupSets": [
+          {
+            "sets": 2,
+            "reps": 20
+          }
+        ]
+      },
+      {
+        "exercise": {
+          "name": "Curl Hamstring",
+          "image": "https://cdn.shopify.com/s/files/1/1876/4703/articles/shutterstock_430434973_1600x.jpg?v=1587822776"
         },
-        {
-          "exercise": {
-            "name": "RDL",
-            "image": "https://www.bodybuilding.com/images/2017/august/Romanian-Deadlifts-Training-The-Other-Half-Of-Your-Leg-header-v2-960x540.jpg"
-          },
-          "groupSets":[
-            {
-              "sets":3,
-              "reps":8,
-              "intensity":"RIR 3"
-            }
-          ]
+        "groupSets": [
+          {
+            "sets": 2,
+            "reps": 20
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "name": "Full body",
+    "day": 3,
+    "status": 0,
+    "exercises": [
+      {
+        "exercise": {
+          "name": "Military Press",
+          "image": "https://www.bodybuilding.com/images/2017/may/6-tips-for-improving-your-overhead-press-header-v2-960x540.jpg"
         },
-        {
-          "exercise": {
-            "name": "Bulgarian Squat",
-            "image": "https://cdn.muscleandstrength.com/sites/default/files/dumbbell-bulgarian-split-squat.jpg"
-          },
-          "groupSets":[
-            {
-              "sets":3,
-              "reps":8,
-              "intensity":"RIR 3"
-            }
-          ]
+        "groupSets": [
+          {
+            "sets": 3,
+            "reps": 10,
+            "intensity": "RIR 2"
+          }
+        ]
+      },
+      {
+        "exercise": {
+          "name": "Reverse Fly",
+          "image": "https://i.ytimg.com/vi/Fgz_FdzDukE/maxresdefault.jpg"
         },
-        {
-          "exercise": {
-            "name": "Plank",
-            "image": "https://img.menzig.fit/a/1000/1410-h0.jpg"
-          },
-          "groupSets":[
-            {
-              "sets":3,
-              "reps":30
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
+        "groupSets": [
+          {
+            "sets": 3,
+            "reps": 10,
+            "intensity": "RIR 2"
+          }
+        ]
+      },
+      {
+        "exercise": {
+          "name": "RDL",
+          "image": "https://www.bodybuilding.com/images/2017/august/Romanian-Deadlifts-Training-The-Other-Half-Of-Your-Leg-header-v2-960x540.jpg"
+        },
+        "groupSets": [
+          {
+            "sets": 3,
+            "reps": 8,
+            "intensity": "RIR 3"
+          }
+        ]
+      },
+      {
+        "exercise": {
+          "name": "Bulgarian Squat",
+          "image": "https://cdn.muscleandstrength.com/sites/default/files/dumbbell-bulgarian-split-squat.jpg"
+        },
+        "groupSets": [
+          {
+            "sets": 3,
+            "reps": 8,
+            "intensity": "RIR 3"
+          }
+        ]
+      },
+      {
+        "exercise": {
+          "name": "Plank",
+          "image": "https://img.menzig.fit/a/1000/1410-h0.jpg"
+        },
+        "groupSets": [
+          {
+            "sets": 3,
+            "reps": 30
+          }
+        ]
+      }
+    ]
+  }
+]
