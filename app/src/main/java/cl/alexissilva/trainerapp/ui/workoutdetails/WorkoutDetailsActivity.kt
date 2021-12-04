@@ -1,29 +1,29 @@
 package cl.alexissilva.trainerapp.ui.workoutdetails
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import cl.alexissilva.trainerapp.R
 import cl.alexissilva.trainerapp.databinding.ActivityWorkoutDetailsBinding
 import cl.alexissilva.trainerapp.ui.adapters.ExercisesAdapter
+import cl.alexissilva.trainerapp.ui.base.BindingActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class WorkoutDetailsActivity : AppCompatActivity() {
+class WorkoutDetailsActivity : BindingActivity<ActivityWorkoutDetailsBinding>() {
 
     private var viewModel: WorkoutDetailsViewModel? = null
-    private var _binding: ActivityWorkoutDetailsBinding? = null
-    private val binding get() = _binding!!
-    private val exercisesAdapter by lazy { ExercisesAdapter(this) }
+    private val exercisesAdapter by lazy { ExercisesAdapter() }
+
+    override val inflateBinding: (LayoutInflater) -> ActivityWorkoutDetailsBinding
+        get() = ActivityWorkoutDetailsBinding::inflate
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityWorkoutDetailsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -52,7 +52,7 @@ class WorkoutDetailsActivity : AppCompatActivity() {
                 if (it != null) {
                     supportActionBar?.title = it.name
                     binding.dayTextView.text = getString(R.string.workout_day, it.day)
-                    exercisesAdapter.setExerciseList(it.exercises)
+                    exercisesAdapter.submitList(it.exercises)
                 }
             }
         }
@@ -68,8 +68,4 @@ class WorkoutDetailsActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 }

@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import cl.alexissilva.trainerapp.R
-import cl.alexissilva.trainerapp.databinding.FragmentNextWorkoutBinding
 import cl.alexissilva.trainerapp.core.domain.Workout
 import cl.alexissilva.trainerapp.core.domain.WorkoutStatus
+import cl.alexissilva.trainerapp.databinding.FragmentNextWorkoutBinding
 import cl.alexissilva.trainerapp.ui.adapters.ExercisesAdapter
+import cl.alexissilva.trainerapp.ui.base.BindingFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -20,18 +20,18 @@ import kotlinx.coroutines.flow.collect
 @AndroidEntryPoint
 class NextWorkoutFragment(
     private var _viewModel: NextWorkoutViewModel? = null
-) : Fragment() {
+) : BindingFragment<FragmentNextWorkoutBinding>() {
     private val viewModel get() = _viewModel!!
-    private var _binding: FragmentNextWorkoutBinding? = null
-    private val binding get() = _binding!!
-    private val exercisesAdapter by lazy { ExercisesAdapter(requireContext()) }
+    private val exercisesAdapter by lazy { ExercisesAdapter() }
+
+    override val inflateBinding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentNextWorkoutBinding
+        get() = FragmentNextWorkoutBinding::inflate
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentNextWorkoutBinding.inflate(inflater, container, false)
         _viewModel = _viewModel ?: ViewModelProvider(this).get(NextWorkoutViewModel::class.java)
-        return binding.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,7 +82,7 @@ class NextWorkoutFragment(
                     binding.exercisesTextView.text = it.exercises.size.toString()
                     binding.setsTextView.text = countSets(it).toString()
                     binding.repsTextView.text = countReps(it).toString()
-                    exercisesAdapter.setExerciseList(it.exercises)
+                    exercisesAdapter.submitList(it.exercises)
                     binding.nextWorkoutLayout.visibility = View.VISIBLE
                     binding.noWorkoutTextView.visibility = View.INVISIBLE
                 } else {
@@ -113,10 +113,5 @@ class NextWorkoutFragment(
             )
             return@fold acc + exerciseReps
         })
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

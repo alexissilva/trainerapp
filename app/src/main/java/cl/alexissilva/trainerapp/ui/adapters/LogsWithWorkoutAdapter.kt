@@ -4,16 +4,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import cl.alexissilva.trainerapp.R
-import cl.alexissilva.trainerapp.databinding.WorkoutLogRowItemBinding
 import cl.alexissilva.trainerapp.core.domain.WorkoutLog
 import cl.alexissilva.trainerapp.core.domain.WorkoutStatus
-import cl.alexissilva.trainerapp.ui.base.RecyclerAdapterBindingList
+import cl.alexissilva.trainerapp.databinding.WorkoutLogRowItemBinding
+import cl.alexissilva.trainerapp.ui.base.BindingListAdapter
 import com.bumptech.glide.Glide
 import java.time.format.DateTimeFormatter
 
 class LogsWithWorkoutAdapter(
     private val onItemClick: ((WorkoutLog) -> Unit)? = null
-) : RecyclerAdapterBindingList<WorkoutLogRowItemBinding, WorkoutLog>() {
+) : BindingListAdapter<WorkoutLog, WorkoutLogRowItemBinding>() {
 
     companion object {
         const val DATE_FORMAT = "EEEE, d MMMM"
@@ -22,21 +22,16 @@ class LogsWithWorkoutAdapter(
     override val inflateBinding: (LayoutInflater, ViewGroup, Boolean) -> WorkoutLogRowItemBinding
         get() = WorkoutLogRowItemBinding::inflate
 
-    override fun onBindViewHolder(
-        holder: ViewHolderBinding<WorkoutLogRowItemBinding>,
-        position: Int
-    ) {
-        val log = dataList[position]
+    override fun WorkoutLogRowItemBinding.onBind(log: WorkoutLog) {
         val workout = log.workout ?: run {
             Log.w("LogsWithWorkoutAdapter", "Log without workout! $log")
             return
         }
 
         val formattedDate = log.date.format(DateTimeFormatter.ofPattern(DATE_FORMAT))
-        holder.binding.dateTextView.text = formattedDate
-
-        holder.binding.nameTextView.text = workout.name
-        holder.binding.cardView.setOnClickListener {
+        dateTextView.text = formattedDate
+        nameTextView.text = workout.name
+        cardView.setOnClickListener {
             onItemClick?.invoke(log)
         }
 
@@ -52,10 +47,10 @@ class LogsWithWorkoutAdapter(
                 R.drawable.ic_skip
             }
         }
-        Glide.with(holder.binding.root.context)
+        Glide.with(root.context)
             .asBitmap()
             .load(drawableId)
-            .into(holder.binding.statusImageView)
+            .into(statusImageView)
     }
 
 }

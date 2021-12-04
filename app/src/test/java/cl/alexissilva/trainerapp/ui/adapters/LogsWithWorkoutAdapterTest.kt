@@ -5,10 +5,9 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import cl.alexissilva.trainerapp.R
 import cl.alexissilva.trainerapp.core.domain.WorkoutLog
-import cl.alexissilva.trainerapp.testutils.AdapterTestUtils.getBoundViewHolder
 import cl.alexissilva.trainerapp.core.testutils.DummyData
+import cl.alexissilva.trainerapp.testutils.AdapterTestUtils
 import com.google.common.truth.Truth.assertThat
-
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,11 +25,11 @@ class LogsWithWorkoutAdapterTest {
             DummyData.workoutLog2.apply { workout = DummyData.workout2 },
         )
         adapter = LogsWithWorkoutAdapter()
-        adapter.dataList = logList
+        adapter.submitList(logList)
     }
 
     @Test
-    fun onBindViewHolder_setsLogData() {
+    fun showsWorkoutName() {
         for (index in logList.indices) {
             val log = logList[index]
             val viewHolder = getBoundViewHolder(index)
@@ -39,7 +38,7 @@ class LogsWithWorkoutAdapterTest {
     }
 
     private fun getBoundViewHolder(index: Int) =
-        getBoundViewHolder(context, adapter, R.layout.workout_log_row_item, index)
+        AdapterTestUtils.getBoundViewHolder(context, adapter, R.layout.workout_log_row_item, index)
 
 
 }

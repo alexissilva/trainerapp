@@ -1,48 +1,23 @@
 package cl.alexissilva.trainerapp.ui.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import cl.alexissilva.trainerapp.databinding.ExerciseRowItemBinding
 import cl.alexissilva.trainerapp.core.domain.WorkoutExercise
-import cl.alexissilva.trainerapp.ui.DefaultDiffUtil
+import cl.alexissilva.trainerapp.databinding.ExerciseRowItemBinding
+import cl.alexissilva.trainerapp.ui.base.BindingListAdapter
 import com.bumptech.glide.Glide
 
-class ExercisesAdapter(private val context: Context) :
-    RecyclerView.Adapter<ExercisesAdapter.ViewHolder>() {
+class ExercisesAdapter : BindingListAdapter<WorkoutExercise, ExerciseRowItemBinding>() {
 
-    private var exerciseList = mutableListOf<WorkoutExercise>()
+    override val inflateBinding: (LayoutInflater, ViewGroup, Boolean) -> ExerciseRowItemBinding
+        get() = ExerciseRowItemBinding::inflate
 
-    class ViewHolder(val binding: ExerciseRowItemBinding) : RecyclerView.ViewHolder(binding.root)
+    override fun ExerciseRowItemBinding.onBind(exercise: WorkoutExercise) {
+        nameTextView.text = exercise.exercise.name
+        groupSetsRecyclerView.adapter = GroupSetsAdapter().apply { submitList(exercise.groupSets) }
+        groupSetsRecyclerView.layoutManager = LinearLayoutManager(context)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutInflater = LayoutInflater.from(context)
-        val binding = ExerciseRowItemBinding.inflate(layoutInflater, parent, false)
-        return ViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val exercise = exerciseList[position]
-
-        holder.binding.nameTextView.text = exercise.exercise.name
-        holder.binding.groupSetsRecyclerView.adapter = GroupSetsAdapter(exercise.groupSets)
-        holder.binding.groupSetsRecyclerView.layoutManager = LinearLayoutManager(context)
-
-        Glide.with(context).load(exercise.exercise.image).centerCrop().into(holder.binding.exerciseImageView)
-    }
-
-    override fun getItemCount(): Int {
-        return exerciseList.size
-    }
-
-    fun setExerciseList(newExerciseList: List<WorkoutExercise>) {
-        val diffCallback = DefaultDiffUtil(this.exerciseList, newExerciseList)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        this.exerciseList.clear()
-        this.exerciseList.addAll(newExerciseList)
-        diffResult.dispatchUpdatesTo(this)
+        Glide.with(context).load(exercise.exercise.image).centerCrop().into(exerciseImageView)
     }
 }

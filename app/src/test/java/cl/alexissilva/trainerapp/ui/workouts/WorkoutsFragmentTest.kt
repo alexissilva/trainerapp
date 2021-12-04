@@ -13,7 +13,7 @@ import cl.alexissilva.trainerapp.R
 import cl.alexissilva.trainerapp.databinding.WorkoutRowItemBinding
 import cl.alexissilva.trainerapp.core.domain.Workout
 import cl.alexissilva.trainerapp.testutils.launchFragmentInHiltContainer
-import cl.alexissilva.trainerapp.ui.base.RecyclerAdapterBinding
+import cl.alexissilva.trainerapp.ui.base.ViewHolderBinding
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Before
 import org.junit.Test
@@ -68,7 +68,7 @@ class WorkoutsFragmentTest {
                 Navigation.setViewNavController(this.requireView(), navController)
             })
         onView(withId(R.id.workouts_recyclerView)).perform(
-            actionOnItemAtPosition<RecyclerAdapterBinding.ViewHolderBinding<WorkoutRowItemBinding>>(
+            actionOnItemAtPosition<ViewHolderBinding<WorkoutRowItemBinding>>(
                 1,
                 click()
             )

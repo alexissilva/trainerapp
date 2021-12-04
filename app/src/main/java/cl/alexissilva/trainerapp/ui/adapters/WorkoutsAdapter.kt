@@ -5,20 +5,19 @@ import android.view.ViewGroup
 import cl.alexissilva.trainerapp.R
 import cl.alexissilva.trainerapp.databinding.WorkoutRowItemBinding
 import cl.alexissilva.trainerapp.core.domain.Workout
-import cl.alexissilva.trainerapp.ui.base.RecyclerAdapterBindingList
+import cl.alexissilva.trainerapp.ui.base.BindingListAdapter
 
 class WorkoutsAdapter(
     private val onItemClick: ((Workout) -> Unit)? = null
-) : RecyclerAdapterBindingList<WorkoutRowItemBinding, Workout>() {
+) : BindingListAdapter<Workout, WorkoutRowItemBinding>() {
 
     override val inflateBinding: (LayoutInflater, ViewGroup, Boolean) -> WorkoutRowItemBinding
         get() = WorkoutRowItemBinding::inflate
 
-    override fun onBindViewHolder(holder: ViewHolderBinding<WorkoutRowItemBinding>, position: Int) {
-        val workout = dataList[position]
-        holder.binding.dayTextView.text = context.getString(R.string.workout_day, workout.day)
-        holder.binding.nameTextView.text = workout.name
-        holder.binding.cardView.setOnClickListener {
+    override fun WorkoutRowItemBinding.onBind(workout: Workout) {
+        dayTextView.text = context.getString(R.string.workout_day, workout.day)
+        nameTextView.text = workout.name
+        cardView.setOnClickListener {
             onItemClick?.invoke(workout)
         }
     }
