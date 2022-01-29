@@ -2,10 +2,13 @@
     <string name="app_name_release">Trainer App</string>
     <string name="app_name_debug">[Debug] Trainer App</string>
 
+    <!-- Activity/Fragment titles -->
     <string name="title_next_workout">Next Workout</string>
     <string name="title_upcoming_workouts">Upcoming Workouts</string>
     <string name="title_history">History</string>
     <string name="title_workout_details">Workout Details</string>
+    <string name="title_workout_log">Workout Log</string>
+
 
 
     <!-- Commons -->

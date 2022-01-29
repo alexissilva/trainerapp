@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import cl.alexissilva.trainerapp.R
 import cl.alexissilva.trainerapp.core.domain.Workout
-import cl.alexissilva.trainerapp.core.domain.WorkoutStatus
 import cl.alexissilva.trainerapp.databinding.FragmentNextWorkoutBinding
 import cl.alexissilva.trainerapp.ui.adapters.ExercisesAdapter
 import cl.alexissilva.trainerapp.ui.base.BindingFragment
@@ -44,10 +44,21 @@ class NextWorkoutFragment(
 
     private fun setupButtons() {
         binding.doneButton.setOnClickListener {
-            viewModel.updateWorkoutStatus(WorkoutStatus.DONE)
+            val workoutId = viewModel.workout.value?.id
+            val toWorkoutLogActivity =
+                NextWorkoutFragmentDirections.actionNextWorkoutFragmentToWorkoutLogActivity()
+                    .apply { this.workoutId = workoutId }
+            findNavController().navigate(toWorkoutLogActivity)
         }
+        /*
+        //TODO create "QuickDoneWorkout"
+        binding.doneButton.setOnLongClickListener {
+            viewModel.skipWorkout(WorkoutStatus.DONE)
+            true
+        }
+         */
         binding.skipButton.setOnClickListener {
-            viewModel.updateWorkoutStatus(WorkoutStatus.SKIPPED)
+            viewModel.skipWorkout()
         }
     }
 

@@ -21,7 +21,7 @@ private class TestListAdapter : BindingListAdapter<String, TestViewBinding>() {
     override val inflateBinding: (LayoutInflater, ViewGroup, Boolean) -> TestViewBinding
         get() = TestViewBinding.inflate
 
-    override fun TestViewBinding.onBind(item: String) {
+    override fun TestViewBinding.onBind(item: String, position: Int) {
         mockViewBindingOnBind?.invoke(item)
     }
 }

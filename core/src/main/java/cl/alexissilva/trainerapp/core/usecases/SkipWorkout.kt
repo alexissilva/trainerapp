@@ -8,15 +8,15 @@ import java.time.Clock
 import java.time.LocalDateTime
 import java.util.*
 
-class UpdateWorkoutStatus(
+class SkipWorkout(
     private val workoutRepository: WorkoutRepository,
     private val clock: Clock,
 ) {
-    suspend operator fun invoke(workout: Workout, status: WorkoutStatus) {
+    suspend operator fun invoke(workout: Workout) {
         val log = WorkoutLog(
             UUID.randomUUID().toString(),
             workout.id,
-            status,
+            WorkoutStatus.SKIPPED,
             LocalDateTime.now(clock)
         )
         return workoutRepository.saveWorkoutLog(log)

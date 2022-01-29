@@ -1,7 +1,8 @@
 package cl.alexissilva.trainerapp.core.domain
 
 data class ExerciseLog(
+    val id: String,
     val exercise: Exercise,
     val comment: String? = null,
-    val setLogs: List<SetLog> = emptyList(),
+    var setLogs: List<SetLog> = emptyList(),
 )

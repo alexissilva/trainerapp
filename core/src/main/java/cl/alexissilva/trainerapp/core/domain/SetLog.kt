@@ -2,13 +2,9 @@ package cl.alexissilva.trainerapp.core.domain
 
 class SetLog(
     val id: String,
-    val status: SetStatus = SetStatus.UNKNOWN,
-    val repsDone: Int,
-    val weightUsed: Int,
+    val number: Int,
+    val done: Boolean,
+    //TODO renamed to reps and weight for simplicity(?)
+    val repsDone: Int? = null,
+    val weightUsed: Int? = null,
 )
-
-enum class SetStatus {
-    UNKNOWN,
-    DONE,
-    SKIPPED,
-}

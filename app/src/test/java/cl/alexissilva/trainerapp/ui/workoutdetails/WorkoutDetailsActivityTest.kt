@@ -10,6 +10,7 @@ import androidx.test.ext.junit.rules.activityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import cl.alexissilva.trainerapp.R
 import cl.alexissilva.trainerapp.core.testutils.DummyData
+import cl.alexissilva.trainerapp.ui.base.ActivityWithViewModelTesting.Companion.IS_BEING_TESTED_PARAM
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Before
 import org.junit.Rule
@@ -26,7 +27,7 @@ class WorkoutDetailsActivityTest {
     private val workout = DummyData.workout.copy(day = 1)
 
     private val testingIntent = Intent(getApplicationContext(), WorkoutDetailsActivity::class.java)
-        .apply { putExtra("isBeingTested", true) }
+        .apply { putExtra(IS_BEING_TESTED_PARAM, true) }
 
     @get:Rule
     var activityScenarioRule = activityScenarioRule<WorkoutDetailsActivity>(testingIntent)

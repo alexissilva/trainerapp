@@ -9,13 +9,17 @@
         android:id="@+id/nextWorkoutFragment"
         android:name="cl.alexissilva.trainerapp.ui.nextworkout.NextWorkoutFragment"
         android:label="@string/title_next_workout"
-        tools:layout="@layout/fragment_next_workout" />
+        tools:layout="@layout/fragment_next_workout">
+        <action
+            android:id="@+id/action_nextWorkoutFragment_to_workoutLogActivity"
+            app:destination="@id/workoutLogActivity" />
+    </fragment>
 
     <fragment
         android:id="@+id/workoutsFragment"
         android:name="cl.alexissilva.trainerapp.ui.workouts.WorkoutsFragment"
         android:label="@string/title_upcoming_workouts"
-        tools:layout="@layout/fragment_workouts" >
+        tools:layout="@layout/fragment_workouts">
         <action
             android:id="@+id/action_workoutsFragment_to_workoutDetailsActivity"
             app:destination="@id/workoutDetailsActivity" />
@@ -31,9 +35,25 @@
         android:id="@+id/workoutDetailsActivity"
         android:name="cl.alexissilva.trainerapp.ui.workoutdetails.WorkoutDetailsActivity"
         android:label="@string/title_workout_details"
-        tools:layout="@layout/activity_workout_details" >
+        tools:layout="@layout/activity_workout_details">
         <argument
             android:name="workoutId"
             app:argType="string" />
+    </activity>
+    <activity
+        android:id="@+id/workoutLogActivity"
+        android:name="cl.alexissilva.trainerapp.ui.workoutlog.WorkoutLogActivity"
+        android:label="WorkoutLogActivity">
+        <argument
+            android:name="workoutLogId"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="workoutId"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
     </activity>
 </navigation>

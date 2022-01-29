@@ -8,7 +8,7 @@ data class WorkoutLog(
     var status: WorkoutStatus = WorkoutStatus.UNKNOWN,
     val date: LocalDateTime = LocalDateTime.MIN,
     val comment: String? = null,
-    val exerciseLogs: List<ExerciseLog> = emptyList(),
+    var exerciseLogs: List<ExerciseLog> = emptyList(),
     var workout: Workout? = null
 )
 

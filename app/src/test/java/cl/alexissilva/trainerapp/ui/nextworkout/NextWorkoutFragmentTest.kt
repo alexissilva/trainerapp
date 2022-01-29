@@ -1,5 +1,7 @@
 package cl.alexissilva.trainerapp.ui.nextworkout
 
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -9,7 +11,6 @@ import cl.alexissilva.trainerapp.R
 import cl.alexissilva.trainerapp.core.domain.GroupSet
 import cl.alexissilva.trainerapp.core.domain.Workout
 import cl.alexissilva.trainerapp.core.domain.WorkoutExercise
-import cl.alexissilva.trainerapp.core.domain.WorkoutStatus
 import cl.alexissilva.trainerapp.core.testutils.DummyData
 import cl.alexissilva.trainerapp.testutils.SwipeRefreshLayoutMatchers.isRefreshing
 import cl.alexissilva.trainerapp.testutils.launchFragmentInHiltContainer
@@ -52,18 +53,27 @@ class NextWorkoutFragmentTest {
             onFragmentAction = action
         )
 
+
     @Test
-    fun updatesWorkoutStatus_onPressDone() {
-        launchFragment()
+    fun navigatesToWorkoutLogActivity_onPressDone() {
+        val navController = mock<NavController>()
+        launchFragment {
+            Navigation.setViewNavController(this.requireView(), navController)
+        }
         onView(withId(R.id.done_button)).perform(click())
-        verify(viewModel).updateWorkoutStatus(WorkoutStatus.DONE)
+
+        verify(navController).navigate(
+            NextWorkoutFragmentDirections.actionNextWorkoutFragmentToWorkoutLogActivity().apply {
+                workoutId = workout.id
+            }
+        )
     }
 
     @Test
     fun updatesWorkoutStatus_onPressSkip() {
         launchFragment()
         onView(withId(R.id.skip_button)).perform(click())
-        verify(viewModel).updateWorkoutStatus(WorkoutStatus.SKIPPED)
+        verify(viewModel).skipWorkout()
     }
 
     @Test

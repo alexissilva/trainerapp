@@ -13,7 +13,7 @@ class ExercisesAdapter : BindingListAdapter<WorkoutExercise, ExerciseRowItemBind
     override val inflateBinding: (LayoutInflater, ViewGroup, Boolean) -> ExerciseRowItemBinding
         get() = ExerciseRowItemBinding::inflate
 
-    override fun ExerciseRowItemBinding.onBind(exercise: WorkoutExercise) {
+    override fun ExerciseRowItemBinding.onBind(exercise: WorkoutExercise, position: Int) {
         nameTextView.text = exercise.exercise.name
         groupSetsRecyclerView.adapter = GroupSetsAdapter().apply { submitList(exercise.groupSets) }
         groupSetsRecyclerView.layoutManager = LinearLayoutManager(context)

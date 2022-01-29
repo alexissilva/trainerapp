@@ -22,7 +22,7 @@ class LogsWithWorkoutAdapter(
     override val inflateBinding: (LayoutInflater, ViewGroup, Boolean) -> WorkoutLogRowItemBinding
         get() = WorkoutLogRowItemBinding::inflate
 
-    override fun WorkoutLogRowItemBinding.onBind(log: WorkoutLog) {
+    override fun WorkoutLogRowItemBinding.onBind(log: WorkoutLog, position: Int) {
         val workout = log.workout ?: run {
             Log.w("LogsWithWorkoutAdapter", "Log without workout! $log")
             return

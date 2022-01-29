@@ -1,10 +1,8 @@
 package cl.alexissilva.trainerapp.ui.base
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -25,23 +23,11 @@ abstract class BindingListAdapter<T, VB : ViewBinding>
     }
 
     override fun onBindViewHolder(holder: ViewHolderBinding<VB>, position: Int) {
-        holder.binding.onBind(getItem(position))
+        holder.binding.onBind(getItem(position), position)
     }
 
-    abstract fun VB.onBind(item: T)
+    abstract fun VB.onBind(item: T, position: Int)
 
 }
 
 class ViewHolderBinding<VB : ViewBinding>(val binding: VB) : RecyclerView.ViewHolder(binding.root)
-
-
-class DefaultDiffItemCallback<T> : DiffUtil.ItemCallback<T>() {
-    override fun areItemsTheSame(oldItem: T, newItem: T): Boolean {
-        return oldItem === newItem
-    }
-
-    @SuppressLint("DiffUtilEquals")
-    override fun areContentsTheSame(oldItem: T, newItem: T): Boolean {
-        return oldItem === newItem
-    }
-}

@@ -11,7 +11,7 @@ class GroupSetsAdapter : BindingListAdapter<GroupSet, GroupSetRowItemBinding>() 
     override val inflateBinding: (LayoutInflater, ViewGroup, Boolean) -> GroupSetRowItemBinding
         get() = GroupSetRowItemBinding::inflate
 
-    override fun GroupSetRowItemBinding.onBind(item: GroupSet) {
+    override fun GroupSetRowItemBinding.onBind(item: GroupSet, position: Int) {
         var description = "${item.sets}x${item.reps}"
         if (!item.intensity.isNullOrEmpty()) {
             description += " at ${item.intensity}"

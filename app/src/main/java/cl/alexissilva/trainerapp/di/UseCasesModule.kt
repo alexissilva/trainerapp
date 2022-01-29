@@ -53,9 +53,20 @@ class UseCasesModule {
 
     @Singleton
     @Provides
-    fun updateWorkoutStatus(workoutRepository: WorkoutRepository, clock: Clock) =
-        UpdateWorkoutStatus(workoutRepository, clock)
+    fun skipWorkout(workoutRepository: WorkoutRepository, clock: Clock) =
+        SkipWorkout(workoutRepository, clock)
 
+
+    @Singleton
+    @Provides
+    fun createDraftWorkoutLog(getLocalWorkout: GetLocalWorkout) =
+        CreateDraftWorkoutLog(getLocalWorkout)
+
+
+    @Singleton
+    @Provides
+    fun saveWorkoutLog(workoutRepository: WorkoutRepository, clock: Clock) =
+        SaveWorkoutLog(workoutRepository, clock)
 
     @Singleton
     @Provides

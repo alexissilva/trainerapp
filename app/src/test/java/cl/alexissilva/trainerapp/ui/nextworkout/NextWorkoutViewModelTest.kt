@@ -9,7 +9,7 @@ import cl.alexissilva.trainerapp.testutils.MainCoroutineRule
 import cl.alexissilva.trainerapp.testutils.TestCoroutineContextProvider
 import cl.alexissilva.trainerapp.core.usecases.DownloadWorkouts
 import cl.alexissilva.trainerapp.core.usecases.GetNextWorkout
-import cl.alexissilva.trainerapp.core.usecases.UpdateWorkoutStatus
+import cl.alexissilva.trainerapp.core.usecases.SkipWorkout
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -43,7 +43,7 @@ class NextWorkoutViewModelTest {
 
     private lateinit var getNextWorkout: GetNextWorkout
 
-    private lateinit var updateWorkoutStatus: UpdateWorkoutStatus
+    private lateinit var skipWorkout: SkipWorkout
 
 
     private lateinit var viewModel: NextWorkoutViewModel
@@ -53,7 +53,7 @@ class NextWorkoutViewModelTest {
 
     @Before
     fun setUp() {
-        updateWorkoutStatus = mock()
+        skipWorkout = mock()
         downloadWorkouts = mock()
         nextWorkoutFlow = flowOf<Workout?>(null)
         getNextWorkout = mock {
@@ -67,7 +67,7 @@ class NextWorkoutViewModelTest {
             downloadWorkouts,
             mock(),
             getNextWorkout,
-            updateWorkoutStatus,
+            skipWorkout,
             contextProvider
         )
     }
@@ -102,12 +102,13 @@ class NextWorkoutViewModelTest {
         assertThat(viewModelWorkouts).isEqualTo(workout)
     }
 
+    @Deprecated("Behavior deprecated. Delete this and create new tests.")
     @Test
     fun updateStatus_ofNextWorkout() = runBlockingTest {
         whenever(nextWorkoutFlow).thenReturn(flowOf(workout))
         initViewModel()
-        viewModel.updateWorkoutStatus(WorkoutStatus.DONE)
-        verify(updateWorkoutStatus).invoke(workout, WorkoutStatus.DONE)
+        viewModel.skipWorkout()
+        verify(skipWorkout).invoke(workout)
     }
 
 }

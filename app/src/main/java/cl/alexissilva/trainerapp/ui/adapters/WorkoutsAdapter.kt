@@ -14,7 +14,7 @@ class WorkoutsAdapter(
     override val inflateBinding: (LayoutInflater, ViewGroup, Boolean) -> WorkoutRowItemBinding
         get() = WorkoutRowItemBinding::inflate
 
-    override fun WorkoutRowItemBinding.onBind(workout: Workout) {
+    override fun WorkoutRowItemBinding.onBind(workout: Workout, position: Int) {
         dayTextView.text = context.getString(R.string.workout_day, workout.day)
         nameTextView.text = workout.name
         cardView.setOnClickListener {

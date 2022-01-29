@@ -9,12 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import cl.alexissilva.trainerapp.R
 import cl.alexissilva.trainerapp.databinding.ActivityWorkoutDetailsBinding
 import cl.alexissilva.trainerapp.ui.adapters.ExercisesAdapter
+import cl.alexissilva.trainerapp.ui.base.ActivityWithViewModelTesting
 import cl.alexissilva.trainerapp.ui.base.BindingActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class WorkoutDetailsActivity : BindingActivity<ActivityWorkoutDetailsBinding>() {
+class WorkoutDetailsActivity :
+    ActivityWithViewModelTesting<WorkoutDetailsViewModel,ActivityWorkoutDetailsBinding>() {
 
     private var viewModel: WorkoutDetailsViewModel? = null
     private val exercisesAdapter by lazy { ExercisesAdapter() }
@@ -26,24 +28,20 @@ class WorkoutDetailsActivity : BindingActivity<ActivityWorkoutDetailsBinding>() 
         super.onCreate(savedInstanceState)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        val isBeingTested = intent.getBooleanExtra("isBeingTested", false)
-        if (!isBeingTested) {
-            setupViewModel()
-        }
         setupRecyclerView()
+    }
+
+    override val viewModelClass: Class<WorkoutDetailsViewModel>
+        get() = WorkoutDetailsViewModel::class.java
+
+    override fun onViewModelCreated(viewModel: WorkoutDetailsViewModel) {
+        this.viewModel = viewModel
+        collectState()
     }
 
     private fun setupRecyclerView() {
         binding.exercisesRecyclerView.adapter = exercisesAdapter
         binding.exercisesRecyclerView.layoutManager = LinearLayoutManager(this)
-    }
-
-    //FIXME It was the best option I found for setup the viewModel in tests
-    internal fun setupViewModel(testingViewModel: WorkoutDetailsViewModel? = null) {
-        viewModel =
-            testingViewModel ?: ViewModelProvider(this).get(WorkoutDetailsViewModel::class.java)
-        collectState()
     }
 
     private fun collectState() {
