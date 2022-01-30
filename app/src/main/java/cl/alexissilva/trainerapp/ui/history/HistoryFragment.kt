@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import cl.alexissilva.trainerapp.core.domain.WorkoutLog
 import cl.alexissilva.trainerapp.core.domain.WorkoutStatus
 import cl.alexissilva.trainerapp.databinding.FragmentHistoryBinding
 import cl.alexissilva.trainerapp.ui.adapters.LogsWithWorkoutAdapter
@@ -20,7 +22,7 @@ class HistoryFragment(
 ) : BindingFragment<FragmentHistoryBinding>() {
 
     private val viewModel get() = _viewModel!!
-    private val adapter by lazy { LogsWithWorkoutAdapter() }
+    private val adapter by lazy { LogsWithWorkoutAdapter(::onItemClick) }
 
     override val inflateBinding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHistoryBinding
         get() = FragmentHistoryBinding::inflate
@@ -61,6 +63,13 @@ class HistoryFragment(
                 adapter.submitList(logs)
             }
         }
+    }
+
+    private fun onItemClick(log: WorkoutLog) {
+        val toWorkoutLogActivity =
+            HistoryFragmentDirections.actionHistoryFragmentToWorkoutLogActivity()
+                .apply { this.workoutLogId = log.id }
+        findNavController().navigate(toWorkoutLogActivity)
     }
 
 

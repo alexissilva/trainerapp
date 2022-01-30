@@ -1,6 +1,7 @@
 package cl.alexissilva.trainerapp.ui.workoutlog
 
 import android.content.Intent
+import android.view.View
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.core.app.launchActivity
@@ -9,6 +10,7 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import cl.alexissilva.trainerapp.R
+import cl.alexissilva.trainerapp.core.domain.ExerciseLog
 import cl.alexissilva.trainerapp.core.testutils.DummyData
 import cl.alexissilva.trainerapp.ui.adapters.exerciselogs.ExerciseLogsAdapter
 import cl.alexissilva.trainerapp.ui.base.ActivityWithViewModelTesting.Companion.IS_BEING_TESTED_PARAM
@@ -16,6 +18,7 @@ import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.HiltTestApplication
+import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -36,15 +39,8 @@ import org.robolectric.annotation.Config
 class WorkoutLogActivityTest {
 
     private val workoutId = "workoutId"
-    private val draftWorkoutLog = DummyData.workoutLog.copy(workoutId = workoutId)
-
-    private val intent =
-        Intent(ApplicationProvider.getApplicationContext(), WorkoutLogActivity::class.java)
-            .apply {
-                putExtra(IS_BEING_TESTED_PARAM, true)
-                putExtra("workoutId", workoutId)
-            }
-
+    private val workoutLog = DummyData.workoutLog.copy(workoutId = workoutId)
+    private val adapterExerciseLogs = emptyList<ExerciseLog>()
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
@@ -53,34 +49,80 @@ class WorkoutLogActivityTest {
     lateinit var adapter: ExerciseLogsAdapter
 
     private lateinit var viewModel: WorkoutLogViewModel
-    private lateinit var scenario: ActivityScenario<WorkoutLogActivity>
-
+    private var scenario: ActivityScenario<WorkoutLogActivity>? = null
 
     @Before
     fun setUp() {
         viewModel = mock {
-            onBlocking { createCompleteDraftWorkoutLog(draftWorkoutLog.workoutId) } doReturn draftWorkoutLog
+            on { workoutLog } doReturn MutableStateFlow(workoutLog)
         }
-        adapter = mock()
-        scenario = launchActivity(intent)
-        scenario.onActivity {
-            it.setupViewModel(viewModel)
+        adapter = mock {
+            on { getExerciseLogs() } doReturn adapterExerciseLogs
         }
     }
 
     @After
     fun tearDown() {
-        scenario.close()
+        scenario?.close()
+    }
+
+    private fun launchActivityAndSetupViewModel(
+        workoutId: String? = null,
+        workoutLogId: String? = null
+    ) {
+        scenario = launchActivity(intent(workoutId, workoutLogId))
+        scenario?.onActivity {
+            it.setupViewModel(viewModel)
+        }
+    }
+
+    private fun intent(workoutId: String?, workoutLogId: String?): Intent {
+        return Intent(ApplicationProvider.getApplicationContext(), WorkoutLogActivity::class.java)
+            .apply {
+                putExtra(IS_BEING_TESTED_PARAM, true)
+                workoutId?.let { putExtra("workoutId", it) }
+                workoutLogId?.let { putExtra("workoutLogId", it) }
+            }
     }
 
     @Test
-    fun setupAdapterWithDraftWorkoutLog_whenReceiveWorkoutId() {
-        verify(adapter).setExerciseLogs(draftWorkoutLog.exerciseLogs)
+    fun setupReadOnlyAdapter_whenReceivedLogId() {
+        launchActivityAndSetupViewModel(workoutLogId = workoutLog.id)
+        verify(adapter).setExerciseLogs(workoutLog.exerciseLogs, true)
     }
 
     @Test
-    fun saveLog_onPressSaveButton() {
+    fun setupEditableAdapter_whenReceivedWorkoutId() {
+        launchActivityAndSetupViewModel(workoutId = workoutId)
+        verify(adapter).setExerciseLogs(workoutLog.exerciseLogs, false)
+    }
+
+    @Test
+    fun setLoadedWorkoutLog_whenReceiveLogId() {
+        launchActivityAndSetupViewModel(workoutLogId = workoutLog.id)
+        verify(viewModel).loadWorkoutLog(workoutLog.id)
+    }
+
+    @Test
+    fun setDraftedWorkoutLog_whenReceiveWorkoutId() {
+        launchActivityAndSetupViewModel(workoutId = workoutId)
+        verify(viewModel).createCompleteDraftWorkoutLog(workoutId)
+    }
+
+    @Test
+    fun updateWorkoutLogWithAdapterInfo_onPressSaveButton() {
+        launchActivityAndSetupViewModel(workoutId = workoutId)
         onView(withId(R.id.saveButton)).perform(click())
-        verify(viewModel).saveWorkoutLog(draftWorkoutLog)
+        verify(viewModel).updateWorkoutLog(adapterExerciseLogs)
+    }
+
+
+    @Test
+    fun hideSaveButton_whenReceiveLogId() {
+        launchActivityAndSetupViewModel(workoutLogId = workoutLog.id)
+        onView(withId(R.id.saveButton)).check { view, noViewFoundException ->
+            noViewFoundException != null || view.visibility == View.GONE
+        }
+
     }
 }

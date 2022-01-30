@@ -62,6 +62,10 @@ class UseCasesModule {
     fun createDraftWorkoutLog(getLocalWorkout: GetLocalWorkout) =
         CreateDraftWorkoutLog(getLocalWorkout)
 
+    @Singleton
+    @Provides
+    fun getWorkoutLog(workoutRepository: WorkoutRepository) =
+        GetWorkoutLog(workoutRepository)
 
     @Singleton
     @Provides

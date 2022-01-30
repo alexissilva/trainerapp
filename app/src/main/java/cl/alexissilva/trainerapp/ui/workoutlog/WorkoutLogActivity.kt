@@ -1,11 +1,9 @@
 package cl.alexissilva.trainerapp.ui.workoutlog
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.navArgs
-import cl.alexissilva.trainerapp.core.domain.WorkoutLog
 import cl.alexissilva.trainerapp.databinding.ActivityWorkoutLogBinding
 import cl.alexissilva.trainerapp.ui.adapters.exerciselogs.ExerciseLogsAdapter
 import cl.alexissilva.trainerapp.ui.base.ActivityWithViewModelTesting
@@ -17,45 +15,49 @@ import javax.inject.Inject
 class WorkoutLogActivity :
     ActivityWithViewModelTesting<WorkoutLogViewModel, ActivityWorkoutLogBinding>() {
 
+
     private val args: WorkoutLogActivityArgs by navArgs()
     private var viewModel: WorkoutLogViewModel? = null
+    private var readOnly: Boolean = false
 
     override val inflateBinding: (LayoutInflater) -> ActivityWorkoutLogBinding
         get() = ActivityWorkoutLogBinding::inflate
 
-    //TODO move to VM
-    private lateinit var workoutLog: WorkoutLog
-
     @Inject
     lateinit var adapter: ExerciseLogsAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        saveButtonSetup()
-    }
 
     override val viewModelClass: Class<WorkoutLogViewModel>
         get() = WorkoutLogViewModel::class.java
 
     override fun onViewModelCreated(viewModel: WorkoutLogViewModel) {
         this.viewModel = viewModel
+        setupScreen()
+    }
+
+    private fun setupScreen() {
+        when {
+            args.workoutLogId != null -> {
+                readOnly = true
+                viewModel?.loadWorkoutLog(args.workoutLogId!!)
+            }
+            args.workoutId != null -> viewModel?.createCompleteDraftWorkoutLog(args.workoutId!!)
+            else -> {
+                //TODO Handle else case - Show error
+            }
+        }
         setupAdapter()
         setupProgressBar()
+        saveButtonSetup()
     }
 
     private fun setupAdapter() {
         binding.logsRecyclerView.adapter = adapter
-        //TODO replace for repeatOn
         lifecycleScope.launchWhenStarted {
-            // TODO add a loading while get data from database
-            val logTemp = when {
-                args.workoutLogId != null -> viewModel?.getWorkoutLog(args.workoutLogId!!)
-                args.workoutId != null -> viewModel?.createCompleteDraftWorkoutLog(args.workoutId!!)
-                else -> null
+            viewModel?.workoutLog?.collect { log ->
+                if (log != null) {
+                    adapter.setExerciseLogs(log.exerciseLogs, readOnly)
+                }
             }
-            //TODO handle null case
-            workoutLog = requireNotNull(logTemp)
-            adapter.setExerciseLogs(workoutLog.exerciseLogs)
         }
     }
 
@@ -67,12 +69,11 @@ class WorkoutLogActivity :
         }
     }
 
-
     private fun saveButtonSetup() {
+        binding.saveButton.isVisible = !readOnly
         binding.saveButton.setOnClickListener {
             val modifiedLogs = adapter.getExerciseLogs()
-            workoutLog.exerciseLogs = modifiedLogs
-            viewModel?.saveWorkoutLog(workoutLog)?.invokeOnCompletion {
+            viewModel?.updateWorkoutLog(modifiedLogs)?.invokeOnCompletion {
                 finish()
             }
         }

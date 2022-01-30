@@ -41,8 +41,8 @@ class ExerciseLogsAdapter @Inject constructor() :
         }
     }
 
-    fun setExerciseLogs(exerciseLogs: List<ExerciseLog>) {
-        submitList(mapLogsToItems(exerciseLogs))
+    fun setExerciseLogs(exerciseLogs: List<ExerciseLog>, readOnly: Boolean = false) {
+        submitList(mapLogsToItems(exerciseLogs, readOnly))
     }
 
     fun getExerciseLogs(): List<ExerciseLog> {

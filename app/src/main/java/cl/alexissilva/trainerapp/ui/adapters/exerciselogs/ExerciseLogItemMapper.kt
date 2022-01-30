@@ -5,13 +5,20 @@ import cl.alexissilva.trainerapp.core.domain.SetLog
 
 object ExerciseLogItemMapper {
 
-    fun mapLogsToItems(exerciseLogs: List<ExerciseLog>): List<ExerciseLogItem> {
+    fun mapLogsToItems(exerciseLogs: List<ExerciseLog>, readOnly: Boolean): List<ExerciseLogItem> {
         val items = mutableListOf<ExerciseLogItem>()
         exerciseLogs.forEach { exerciseLog ->
             items.add(ExerciseHeader(exerciseLog.id, exerciseLog.exercise))
             exerciseLog.setLogs.forEach { setLog ->
                 items.add(
-                    SetLogItem(setLog.id, setLog.number, setLog.done, setLog.repsDone)
+                    SetLogItem(
+                        setLog.id,
+                        setLog.number,
+                        setLog.done,
+                        setLog.repsDone,
+                        setLog.weightUsed,
+                        readOnly
+                    )
                 )
             }
         }

@@ -29,7 +29,11 @@
         android:id="@+id/historyFragment"
         android:name="cl.alexissilva.trainerapp.ui.history.HistoryFragment"
         android:label="@string/title_history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_historyFragment_to_workoutLogActivity"
+            app:destination="@id/workoutLogActivity" />
+    </fragment>
 
     <activity
         android:id="@+id/workoutDetailsActivity"

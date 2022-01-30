@@ -37,6 +37,10 @@ class SetLogItemHolder(binding: ItemSetLogRowBinding) :
             //TODO pass adapter reference or do update manually(?)
             //notifyItemChanged(position)
         }
+
+        repsEditText.isEnabled = !item.readOnly
+        weightEditText.isEnabled = !item.readOnly
+        doneCheckBox.isEnabled = !item.readOnly
     }
 
     override fun ItemSetLogRowBinding.onAttachedToWindow() {
