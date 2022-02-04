@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.navArgs
+import cl.alexissilva.trainerapp.core.domain.WorkoutStatus
 import cl.alexissilva.trainerapp.databinding.ActivityWorkoutLogBinding
 import cl.alexissilva.trainerapp.ui.adapters.exerciselogs.ExerciseLogsAdapter
 import cl.alexissilva.trainerapp.ui.base.ActivityWithViewModelTesting
@@ -14,7 +15,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class WorkoutLogActivity :
     ActivityWithViewModelTesting<WorkoutLogViewModel, ActivityWorkoutLogBinding>() {
-
 
     private val args: WorkoutLogActivityArgs by navArgs()
     private var viewModel: WorkoutLogViewModel? = null
@@ -45,17 +45,23 @@ class WorkoutLogActivity :
                 //TODO Handle else case - Show error
             }
         }
-        setupAdapter()
+        showWorkoutLogDetails()
         setupProgressBar()
         saveButtonSetup()
     }
 
-    private fun setupAdapter() {
+    private fun showWorkoutLogDetails() {
         binding.logsRecyclerView.adapter = adapter
         lifecycleScope.launchWhenStarted {
             viewModel?.workoutLog?.collect { log ->
                 if (log != null) {
-                    adapter.setExerciseLogs(log.exerciseLogs, readOnly)
+                    with(binding) {
+                        logsRecyclerView.isVisible = log.status != WorkoutStatus.SKIPPED
+                        workoutSkippedTextView.isVisible = log.status == WorkoutStatus.SKIPPED
+                    }
+                    if (log.status != WorkoutStatus.SKIPPED) {
+                        adapter.setExerciseLogs(log.exerciseLogs, readOnly)
+                    }
                 }
             }
         }

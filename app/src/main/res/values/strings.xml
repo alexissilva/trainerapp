@@ -32,4 +32,9 @@
     <string name="done_label">Done</string>
     <string name="skipped_label">Skipped</string>
     <string name="past_workouts">Past workouts</string>
+
+
+    <!-- Workout Log -->
+    <string name="save">Save</string>
+    <string name="workout_skipped">Workout Skipped.</string>
 </resources>
