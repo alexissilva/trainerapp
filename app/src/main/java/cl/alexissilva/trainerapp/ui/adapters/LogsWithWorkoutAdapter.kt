@@ -42,9 +42,8 @@ class LogsWithWorkoutAdapter(
             WorkoutStatus.DONE -> {
                 R.drawable.ic_done
             }
-            //FIXME skip icon is not shown... something happens with the color
             WorkoutStatus.SKIPPED -> {
-                R.drawable.ic_skip
+                R.drawable.ic_skipped
             }
         }
         Glide.with(root.context)

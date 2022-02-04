@@ -159,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:text="@string/skip_button"
-                app:icon="@drawable/ic_skip"
+                app:icon="@drawable/ic_skipped"
                 app:layout_constraintBottom_toBottomOf="@+id/done_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/done_button" />
