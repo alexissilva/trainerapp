@@ -15,8 +15,8 @@ android {
         applicationId "cl.alexissilva.trainerapp"
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 5
-        versionName "0.0.5"
+        versionCode 6
+        versionName "0.0.6"
 
         buildConfigField "boolean", "USE_FAKE_REMOTE", "false"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
