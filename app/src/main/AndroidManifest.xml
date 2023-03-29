@@ -28,7 +28,6 @@
             android:name=".ui.workoutdetails.WorkoutDetailsActivity"
             android:label="@string/title_workout_details"
             android:theme="@style/Theme.TrainerApp.NoActionBar" />
-
         <activity
             android:name=".ui.workoutlog.WorkoutLogActivity"
             android:label="@string/title_workout_log" />
