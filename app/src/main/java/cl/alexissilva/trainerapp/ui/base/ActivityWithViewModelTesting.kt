@@ -22,7 +22,7 @@ abstract class ActivityWithViewModelTesting<VM : ViewModel, VB : ViewBinding> :
 
 
     internal fun setupViewModel(testingViewModel: VM? = null) {
-        val viewModel = testingViewModel ?: ViewModelProvider(this).get(viewModelClass)
+        val viewModel = testingViewModel ?: ViewModelProvider(this)[viewModelClass]
         onViewModelCreated(viewModel)
     }
 

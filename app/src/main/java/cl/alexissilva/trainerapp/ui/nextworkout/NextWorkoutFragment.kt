@@ -15,7 +15,6 @@ import cl.alexissilva.trainerapp.ui.adapters.ExercisesAdapter
 import cl.alexissilva.trainerapp.ui.base.BindingFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class NextWorkoutFragment(
@@ -44,11 +43,13 @@ class NextWorkoutFragment(
 
     private fun setupButtons() {
         binding.doneButton.setOnClickListener {
-            val workoutId = viewModel.workout.value?.id
-            val toWorkoutLogActivity =
-                NextWorkoutFragmentDirections.actionNextWorkoutFragmentToWorkoutLogActivity()
-                    .apply { this.workoutId = workoutId }
-            findNavController().navigate(toWorkoutLogActivity)
+            viewModel.workout.value?.id?.let { workoutId ->
+                val toWorkoutLogActivity =
+                    NextWorkoutFragmentDirections.actionNextWorkoutFragmentToWorkoutLogActivity(
+                        workoutId
+                    )
+                findNavController().navigate(toWorkoutLogActivity)
+            }
         }
         /*
         //TODO create "QuickDoneWorkout"

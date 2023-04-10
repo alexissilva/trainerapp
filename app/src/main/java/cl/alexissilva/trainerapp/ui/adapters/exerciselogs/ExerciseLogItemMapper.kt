@@ -5,7 +5,7 @@ import cl.alexissilva.trainerapp.core.domain.SetLog
 
 object ExerciseLogItemMapper {
 
-    fun mapLogsToItems(exerciseLogs: List<ExerciseLog>, readOnly: Boolean): List<ExerciseLogItem> {
+    fun mapLogsToItems(exerciseLogs: List<ExerciseLog>): List<ExerciseLogItem> {
         val items = mutableListOf<ExerciseLogItem>()
         exerciseLogs.forEach { exerciseLog ->
             items.add(ExerciseHeader(exerciseLog.id, exerciseLog.exercise))
@@ -17,7 +17,6 @@ object ExerciseLogItemMapper {
                         setLog.done,
                         setLog.repsDone,
                         setLog.weightUsed,
-                        readOnly
                     )
                 )
             }
@@ -40,7 +39,7 @@ object ExerciseLogItemMapper {
                     log = ExerciseLog(item.exerciseLogId, item.exercise, item.comment)
                 }
                 is SetLogItem -> {
-                    //TODO I'm not sure about if we need this "cleaning"
+                    //TODO I'm not sure if this "cleaning" is needed
                     val reps = if (item.done) item.reps else null
                     val weight = if (item.done) item.weight else null
                     sets.add(SetLog(item.setLogId, item.number, item.done, reps, weight))

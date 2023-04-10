@@ -1,4 +1,4 @@
-package cl.alexissilva.trainerapp.ui.workoutlog
+package cl.alexissilva.trainerapp.ui.createworkoutlog
 
 import android.view.LayoutInflater
 import androidx.core.view.isVisible
@@ -9,16 +9,14 @@ import cl.alexissilva.trainerapp.databinding.ActivityWorkoutLogBinding
 import cl.alexissilva.trainerapp.ui.adapters.exerciselogs.ExerciseLogsAdapter
 import cl.alexissilva.trainerapp.ui.base.ActivityWithViewModelTesting
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class WorkoutLogActivity :
-    ActivityWithViewModelTesting<WorkoutLogViewModel, ActivityWorkoutLogBinding>() {
+class CreateWorkoutLogActivity :
+    ActivityWithViewModelTesting<CreateWorkoutLogViewModel, ActivityWorkoutLogBinding>() {
 
-    private val args: WorkoutLogActivityArgs by navArgs()
-    private var viewModel: WorkoutLogViewModel? = null
-    private var readOnly: Boolean = false
+    private val args: CreateWorkoutLogActivityArgs by navArgs()
+    private var viewModel: CreateWorkoutLogViewModel? = null
 
     override val inflateBinding: (LayoutInflater) -> ActivityWorkoutLogBinding
         get() = ActivityWorkoutLogBinding::inflate
@@ -26,25 +24,16 @@ class WorkoutLogActivity :
     @Inject
     lateinit var adapter: ExerciseLogsAdapter
 
-    override val viewModelClass: Class<WorkoutLogViewModel>
-        get() = WorkoutLogViewModel::class.java
+    override val viewModelClass: Class<CreateWorkoutLogViewModel>
+        get() = CreateWorkoutLogViewModel::class.java
 
-    override fun onViewModelCreated(viewModel: WorkoutLogViewModel) {
+    override fun onViewModelCreated(viewModel: CreateWorkoutLogViewModel) {
         this.viewModel = viewModel
         setupScreen()
     }
 
     private fun setupScreen() {
-        when {
-            args.workoutLogId != null -> {
-                readOnly = true
-                viewModel?.loadWorkoutLog(args.workoutLogId!!)
-            }
-            args.workoutId != null -> viewModel?.createCompleteDraftWorkoutLog(args.workoutId!!)
-            else -> {
-                //TODO Handle else case - Show error
-            }
-        }
+        viewModel?.createCompleteDraftWorkoutLog(args.workoutId)
         showWorkoutLogDetails()
         setupProgressBar()
         saveButtonSetup()
@@ -60,7 +49,7 @@ class WorkoutLogActivity :
                         workoutSkippedTextView.isVisible = log.status == WorkoutStatus.SKIPPED
                     }
                     if (log.status != WorkoutStatus.SKIPPED) {
-                        adapter.setExerciseLogs(log.exerciseLogs, readOnly)
+                        adapter.setExerciseLogs(log.exerciseLogs)
                     }
                 }
             }
@@ -76,7 +65,6 @@ class WorkoutLogActivity :
     }
 
     private fun saveButtonSetup() {
-        binding.saveButton.isVisible = !readOnly
         binding.saveButton.setOnClickListener {
             val modifiedLogs = adapter.getExerciseLogs()
             viewModel?.updateWorkoutLog(modifiedLogs)?.invokeOnCompletion {

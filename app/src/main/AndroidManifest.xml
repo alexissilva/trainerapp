@@ -29,8 +29,12 @@
             android:label="@string/title_workout_details"
             android:theme="@style/Theme.TrainerApp.NoActionBar" />
         <activity
-            android:name=".ui.workoutlog.WorkoutLogActivity"
-            android:label="@string/title_workout_log" />
+            android:name=".ui.createworkoutlog.CreateWorkoutLogActivity"
+            android:label="@string/title_create_workout_log" />
+
+        <activity
+            android:name=".ui.showworkoutlog.ShowWorkoutLogActivity"
+            android:label="@string/title_show_workout_log" />
     </application>
 
 </manifest>

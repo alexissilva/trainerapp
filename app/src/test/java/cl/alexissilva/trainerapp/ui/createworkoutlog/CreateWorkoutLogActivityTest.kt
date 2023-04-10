@@ -1,4 +1,4 @@
-package cl.alexissilva.trainerapp.ui.workoutlog
+package cl.alexissilva.trainerapp.ui.createworkoutlog
 
 import android.content.Intent
 import androidx.test.core.app.ActivityScenario
@@ -39,7 +39,7 @@ import org.robolectric.annotation.Config
 )
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
-class WorkoutLogActivityTest {
+class CreateWorkoutLogActivityTest {
 
     private val workoutId = "workoutId"
     private val workoutLog = DummyData.workoutLog.copy(workoutId = workoutId)
@@ -51,8 +51,8 @@ class WorkoutLogActivityTest {
     @BindValue
     lateinit var adapter: ExerciseLogsAdapter
 
-    private lateinit var viewModel: WorkoutLogViewModel
-    private var scenario: ActivityScenario<WorkoutLogActivity>? = null
+    private lateinit var viewModel: CreateWorkoutLogViewModel
+    private var scenario: ActivityScenario<CreateWorkoutLogActivity>? = null
 
     @Before
     fun setUp() {
@@ -80,7 +80,7 @@ class WorkoutLogActivityTest {
     }
 
     private fun intent(workoutId: String?, workoutLogId: String?): Intent {
-        return Intent(ApplicationProvider.getApplicationContext(), WorkoutLogActivity::class.java)
+        return Intent(ApplicationProvider.getApplicationContext(), CreateWorkoutLogActivity::class.java)
             .apply {
                 putExtra(IS_BEING_TESTED_PARAM, true)
                 workoutId?.let { putExtra("workoutId", it) }

@@ -64,6 +64,11 @@ class UseCasesModule {
 
     @Singleton
     @Provides
+    fun createGetWorkoutLogAsStringParis(getWorkoutLog: GetWorkoutLog) =
+        GetWorkoutLogAsStringPairs(getWorkoutLog)
+
+    @Singleton
+    @Provides
     fun getWorkoutLog(workoutRepository: WorkoutRepository) =
         GetWorkoutLog(workoutRepository)
 

@@ -1,4 +1,4 @@
-package cl.alexissilva.trainerapp.ui.workoutlog
+package cl.alexissilva.trainerapp.ui.createworkoutlog
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,7 +15,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class WorkoutLogViewModel @Inject constructor(
+class CreateWorkoutLogViewModel @Inject constructor(
     private val contextProvider: CoroutineContextProvider,
     private val createDraftWorkoutLogUC: CreateDraftWorkoutLog,
     private val saveWorkoutLogUC: SaveWorkoutLog,

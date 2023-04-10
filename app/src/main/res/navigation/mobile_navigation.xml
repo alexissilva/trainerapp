@@ -31,8 +31,8 @@
         android:label="@string/title_history"
         tools:layout="@layout/fragment_history" >
         <action
-            android:id="@+id/action_historyFragment_to_workoutLogActivity"
-            app:destination="@id/workoutLogActivity" />
+            android:id="@+id/action_historyFragment_to_historicalLogActivity"
+            app:destination="@id/historicalLogActivity" />
     </fragment>
 
     <activity
@@ -46,18 +46,18 @@
     </activity>
     <activity
         android:id="@+id/workoutLogActivity"
-        android:name="cl.alexissilva.trainerapp.ui.workoutlog.WorkoutLogActivity"
-        android:label="WorkoutLogActivity">
-        <argument
-            android:name="workoutLogId"
-            android:defaultValue="@null"
-            app:argType="string"
-            app:nullable="true" />
-
+        android:name="cl.alexissilva.trainerapp.ui.createworkoutlog.CreateWorkoutLogActivity"
+        android:label="@string/title_create_workout_log">
         <argument
             android:name="workoutId"
-            android:defaultValue="@null"
-            app:argType="string"
-            app:nullable="true" />
+            app:argType="string" />
+    </activity>
+    <activity
+        android:id="@+id/historicalLogActivity"
+        android:name="cl.alexissilva.trainerapp.ui.showworkoutlog.ShowWorkoutLogActivity"
+        android:label="@string/title_show_workout_log" >
+        <argument
+            android:name="workoutLogId"
+            app:argType="string"/>
     </activity>
 </navigation>

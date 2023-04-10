@@ -7,7 +7,9 @@
     <string name="title_upcoming_workouts">Upcoming Workouts</string>
     <string name="title_history">History</string>
     <string name="title_workout_details">Workout Details</string>
-    <string name="title_workout_log">Workout Log</string>
+    <string name="title_show_workout_log">Workout Log</string>
+    <string name="title_create_workout_log">Create Workout Log</string>
+
 
 
 

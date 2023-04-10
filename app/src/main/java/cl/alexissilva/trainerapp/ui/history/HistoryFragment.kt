@@ -66,9 +66,7 @@ class HistoryFragment(
     }
 
     private fun onItemClick(log: WorkoutLog) {
-        val toWorkoutLogActivity =
-            HistoryFragmentDirections.actionHistoryFragmentToWorkoutLogActivity()
-                .apply { this.workoutLogId = log.id }
+        val toWorkoutLogActivity = HistoryFragmentDirections.actionHistoryFragmentToHistoricalLogActivity(log.id)
         findNavController().navigate(toWorkoutLogActivity)
     }
 

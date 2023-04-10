@@ -15,8 +15,7 @@ class SetLogItem(
     val number: Int,
     var done: Boolean = true,
     var reps: Int? = null,
-    var weight: Int? = null,
-    val readOnly: Boolean = false,
+    var weight: Int? = null
 ) : ExerciseLogItem()
 
 enum class ExerciseLogItemType {
