@@ -54,6 +54,7 @@ class NextWorkoutFragmentTest {
         )
 
 
+
     @Test
     fun navigatesToWorkoutLogActivity_onPressDone() {
         val navController = mock<NavController>()
@@ -63,11 +64,11 @@ class NextWorkoutFragmentTest {
         onView(withId(R.id.done_button)).perform(click())
 
         verify(navController).navigate(
-            NextWorkoutFragmentDirections.actionNextWorkoutFragmentToWorkoutLogActivity().apply {
-                workoutId = workout.id
-            }
+            NextWorkoutFragmentDirections.actionNextWorkoutFragmentToCreateWorkoutLogActivity(workout.id)
         )
     }
+
+
 
     @Test
     fun updatesWorkoutStatus_onPressSkip() {

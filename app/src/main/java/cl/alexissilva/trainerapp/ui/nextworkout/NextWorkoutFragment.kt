@@ -45,7 +45,7 @@ class NextWorkoutFragment(
         binding.doneButton.setOnClickListener {
             viewModel.workout.value?.id?.let { workoutId ->
                 val toWorkoutLogActivity =
-                    NextWorkoutFragmentDirections.actionNextWorkoutFragmentToWorkoutLogActivity(
+                    NextWorkoutFragmentDirections.actionNextWorkoutFragmentToCreateWorkoutLogActivity(
                         workoutId
                     )
                 findNavController().navigate(toWorkoutLogActivity)
