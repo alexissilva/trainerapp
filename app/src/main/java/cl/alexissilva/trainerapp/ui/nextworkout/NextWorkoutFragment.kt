@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import cl.alexissilva.trainerapp.R
@@ -13,8 +13,10 @@ import cl.alexissilva.trainerapp.core.domain.Workout
 import cl.alexissilva.trainerapp.databinding.FragmentNextWorkoutBinding
 import cl.alexissilva.trainerapp.ui.adapters.ExercisesAdapter
 import cl.alexissilva.trainerapp.ui.base.BindingFragment
+import cl.alexissilva.trainerapp.utils.extensions.launchOnLifecycle
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class NextWorkoutFragment(
@@ -76,30 +78,32 @@ class NextWorkoutFragment(
 
 
     private fun collectState() {
-        lifecycleScope.launchWhenCreated {
-            viewModel.isLoading.collect {
-                binding.swipeRefreshLayout.isRefreshing = it
+        launchOnLifecycle(Lifecycle.State.CREATED) {
+            launch {
+                viewModel.isLoading.collect {
+                    binding.swipeRefreshLayout.isRefreshing = it
+                }
             }
-        }
-        lifecycleScope.launchWhenCreated {
-            viewModel.errorMessage.collect {
-                it?.let { showSnackbar(it) }
+            launch {
+                viewModel.errorMessage.collect {
+                    it?.let { showSnackbar(it) }
+                }
             }
-        }
-        lifecycleScope.launchWhenCreated {
-            viewModel.workout.collect {
-                if (it != null) {
-                    binding.workoutNameTextView.text = it.name
-                    binding.dayTextView.text = getString(R.string.workout_day, it.day)
-                    binding.exercisesTextView.text = it.exercises.size.toString()
-                    binding.setsTextView.text = countSets(it).toString()
-                    binding.repsTextView.text = countReps(it).toString()
-                    exercisesAdapter.submitList(it.exercises)
-                    binding.nextWorkoutLayout.visibility = View.VISIBLE
-                    binding.noWorkoutTextView.visibility = View.INVISIBLE
-                } else {
-                    binding.nextWorkoutLayout.visibility = View.INVISIBLE
-                    binding.noWorkoutTextView.visibility = View.VISIBLE
+            launch {
+                viewModel.workout.collect {
+                    if (it != null) {
+                        binding.workoutNameTextView.text = it.name
+                        binding.dayTextView.text = getString(R.string.workout_day, it.day)
+                        binding.exercisesTextView.text = it.exercises.size.toString()
+                        binding.setsTextView.text = countSets(it).toString()
+                        binding.repsTextView.text = countReps(it).toString()
+                        exercisesAdapter.submitList(it.exercises)
+                        binding.nextWorkoutLayout.visibility = View.VISIBLE
+                        binding.noWorkoutTextView.visibility = View.INVISIBLE
+                    } else {
+                        binding.nextWorkoutLayout.visibility = View.INVISIBLE
+                        binding.noWorkoutTextView.visibility = View.VISIBLE
+                    }
                 }
             }
         }

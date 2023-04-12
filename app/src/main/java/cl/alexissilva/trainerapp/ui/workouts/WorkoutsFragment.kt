@@ -4,16 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import cl.alexissilva.trainerapp.databinding.FragmentWorkoutsBinding
 import cl.alexissilva.trainerapp.core.domain.Workout
+import cl.alexissilva.trainerapp.databinding.FragmentWorkoutsBinding
 import cl.alexissilva.trainerapp.ui.adapters.WorkoutsAdapter
 import cl.alexissilva.trainerapp.ui.base.BindingFragment
+import cl.alexissilva.trainerapp.utils.extensions.launchOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class WorkoutsFragment(
@@ -47,7 +47,7 @@ class WorkoutsFragment(
     }
 
     private fun collectState() {
-        lifecycleScope.launchWhenCreated {
+        launchOnLifecycle(Lifecycle.State.CREATED) {
             viewModel.workouts.collect {
                 adapter.submitList(it)
                 binding.noWorkoutsTextView.visibility =

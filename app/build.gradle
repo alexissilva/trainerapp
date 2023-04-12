@@ -72,8 +72,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1"
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
@@ -97,8 +96,6 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
     implementation 'androidx.activity:activity-compose:1.7.0'
     implementation "com.google.accompanist:accompanist-themeadapter-material:0.30.0"
-
-
 
 
     //LOCAL TESTS

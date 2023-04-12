@@ -17,7 +17,6 @@ import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
 class WorkoutRepositoryImplTest {
-    //FIXME use DummyData
     private val dummyWorkout = DummyData.workout
     private val dummyWorkoutLog = DummyData.workoutLog
 

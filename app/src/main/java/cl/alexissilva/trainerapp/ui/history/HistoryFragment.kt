@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import cl.alexissilva.trainerapp.core.domain.WorkoutLog
@@ -13,8 +13,8 @@ import cl.alexissilva.trainerapp.core.domain.WorkoutStatus
 import cl.alexissilva.trainerapp.databinding.FragmentHistoryBinding
 import cl.alexissilva.trainerapp.ui.adapters.LogsWithWorkoutAdapter
 import cl.alexissilva.trainerapp.ui.base.BindingFragment
+import cl.alexissilva.trainerapp.utils.extensions.launchOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class HistoryFragment(
@@ -48,14 +48,12 @@ class HistoryFragment(
     }
 
     private fun collectState() {
-        lifecycleScope.launchWhenCreated {
+        launchOnLifecycle(Lifecycle.State.CREATED) {
             viewModel.workoutLogs.collect { logs ->
-
                 binding.doneTextView.text =
                     logs.count { it.status == WorkoutStatus.DONE }.toString()
                 binding.skippedTextView.text =
                     logs.count { it.status == WorkoutStatus.SKIPPED }.toString()
-
 
                 binding.noPastWorkoutsTextView.visibility =
                     if (logs.isEmpty()) View.VISIBLE else View.INVISIBLE

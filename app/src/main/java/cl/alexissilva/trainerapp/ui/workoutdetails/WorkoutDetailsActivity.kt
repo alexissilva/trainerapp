@@ -3,16 +3,14 @@ package cl.alexissilva.trainerapp.ui.workoutdetails
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import cl.alexissilva.trainerapp.R
 import cl.alexissilva.trainerapp.databinding.ActivityWorkoutDetailsBinding
 import cl.alexissilva.trainerapp.ui.adapters.ExercisesAdapter
 import cl.alexissilva.trainerapp.ui.base.ActivityWithViewModelTesting
-import cl.alexissilva.trainerapp.ui.base.BindingActivity
+import cl.alexissilva.trainerapp.utils.extensions.launchOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class WorkoutDetailsActivity :
@@ -45,7 +43,7 @@ class WorkoutDetailsActivity :
     }
 
     private fun collectState() {
-        lifecycleScope.launchWhenCreated {
+        launchOnLifecycle(Lifecycle.State.CREATED) {
             viewModel?.workout?.collect {
                 if (it != null) {
                     supportActionBar?.title = it.name

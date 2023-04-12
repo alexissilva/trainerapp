@@ -2,12 +2,13 @@ package cl.alexissilva.trainerapp.ui.createworkoutlog
 
 import android.view.LayoutInflater
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.navArgs
 import cl.alexissilva.trainerapp.core.domain.WorkoutStatus
 import cl.alexissilva.trainerapp.databinding.ActivityWorkoutLogBinding
 import cl.alexissilva.trainerapp.ui.adapters.exerciselogs.ExerciseLogsAdapter
 import cl.alexissilva.trainerapp.ui.base.ActivityWithViewModelTesting
+import cl.alexissilva.trainerapp.utils.extensions.launchOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -41,7 +42,7 @@ class CreateWorkoutLogActivity :
 
     private fun showWorkoutLogDetails() {
         binding.logsRecyclerView.adapter = adapter
-        lifecycleScope.launchWhenStarted {
+        launchOnLifecycle(Lifecycle.State.STARTED) {
             viewModel?.workoutLog?.collect { log ->
                 if (log != null) {
                     with(binding) {
@@ -57,7 +58,7 @@ class CreateWorkoutLogActivity :
     }
 
     private fun setupProgressBar() {
-        lifecycleScope.launchWhenStarted {
+        launchOnLifecycle(Lifecycle.State.STARTED) {
             viewModel?.loading?.collect {
                 binding.progressBar.isVisible = it
             }

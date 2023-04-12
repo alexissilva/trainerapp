@@ -15,7 +15,7 @@ class WorkoutDetailsViewModel @Inject constructor(
     private val state: SavedStateHandle
 ) : ViewModel() {
 
-    //FIXME handle null case (?)
+    //FIXME get workoutId as parameter instead of getting from state in order to reduce coupling
     val workout = getLocalWorkout(state.get<String>("workoutId")!!)
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
