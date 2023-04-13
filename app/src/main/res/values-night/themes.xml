@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.TrainerApp" parent="Base.Theme.TrainerApp">
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorSurface">@color/gray_darker</item>
+        <item name="colorSurfaceVariant">@color/gray_dark</item>
+        <item name="actionBarStyle">@style/Widget.MaterialComponents.ActionBar.PrimarySurface</item>
+    </style>
+</resources>

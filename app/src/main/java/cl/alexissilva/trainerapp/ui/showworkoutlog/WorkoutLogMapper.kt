@@ -1,13 +1,10 @@
-package cl.alexissilva.trainerapp.core.usecases
+package cl.alexissilva.trainerapp.ui.showworkoutlog
 
-import kotlinx.coroutines.flow.firstOrNull
+import cl.alexissilva.trainerapp.core.domain.WorkoutLog
 
-class GetWorkoutLogAsStringPairs(
-    private val getWorkoutLog: GetWorkoutLog
-) {
-    suspend operator fun invoke(workoutLogId: String): List<Pair<String, List<String>>> {
-        val workoutLog = getWorkoutLog(workoutLogId).firstOrNull() ?: return emptyList()
+object WorkoutLogMapper {
 
+    fun mapWorkoutLogToExerciseStrings(workoutLog: WorkoutLog): List<Pair<String, List<String>>> {
         return workoutLog.exerciseLogs.map { log ->
             val name = log.exercise.name
             val setLogs = mutableListOf<String>()

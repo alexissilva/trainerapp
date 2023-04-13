@@ -62,10 +62,6 @@ class UseCasesModule {
     fun createDraftWorkoutLog(getLocalWorkout: GetLocalWorkout) =
         CreateDraftWorkoutLog(getLocalWorkout)
 
-    @Singleton
-    @Provides
-    fun createGetWorkoutLogAsStringParis(getWorkoutLog: GetWorkoutLog) =
-        GetWorkoutLogAsStringPairs(getWorkoutLog)
 
     @Singleton
     @Provides

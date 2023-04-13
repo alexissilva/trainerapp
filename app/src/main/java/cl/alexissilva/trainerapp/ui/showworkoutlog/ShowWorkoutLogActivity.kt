@@ -4,10 +4,9 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
@@ -16,10 +15,16 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.navArgs
+import cl.alexissilva.trainerapp.core.domain.WorkoutLog
+import cl.alexissilva.trainerapp.core.domain.WorkoutStatus
+import cl.alexissilva.trainerapp.ui.showworkoutlog.WorkoutLogMapper.mapWorkoutLogToExerciseStrings
+import cl.alexissilva.trainerapp.ui.theme.AppColors
 import cl.alexissilva.trainerapp.ui.theme.MyApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,7 +37,6 @@ class ShowWorkoutLogActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //_viewModel = ViewModelProvider(this)[HistoricalLogViewModel::class.java]
         viewModel.loadWorkoutLog(args.workoutLogId)
         setContent {
             MyApplicationTheme {
@@ -41,28 +45,38 @@ class ShowWorkoutLogActivity : AppCompatActivity() {
         }
     }
 
+    private fun getBackgroundColor(darkTheme: Boolean) =
+        if (darkTheme) AppColors.GreyDark else AppColors.GreyLight
+
     @Composable
     fun ActivityScreen() {
-        val workoutLogs = viewModel.workoutLogAsStringPairs.collectAsState().value ?: emptyList()
+        val workoutLog = viewModel.workoutLog.collectAsState().value ?: return
         Surface(modifier = Modifier.fillMaxSize()) {
-            Column {
-                Workouts(workoutLogs)
+            Column(
+                modifier = Modifier.background(color = getBackgroundColor(isSystemInDarkTheme()))
+            ) {
+                if (workoutLog.status == WorkoutStatus.SKIPPED) {
+                    WorkoutSkippedText()
+                } else {
+                    ExerciseLogList(workoutLog)
+                }
             }
         }
     }
 
     @Composable
-    fun Workouts(workoutLogAsStringPairs: List<Pair<String, List<String>>>) {
+    fun ExerciseLogList(workoutLog: WorkoutLog) {
+        val exerciseStrings = mapWorkoutLogToExerciseStrings(workoutLog)
         LazyColumn(modifier = Modifier.padding(8.dp)) {
-            items(workoutLogAsStringPairs) { log ->
-                WorkoutCard(log.first, log.second)
+            items(exerciseStrings) { exercisePair ->
+                ExerciseLogCard(exercisePair.first, exercisePair.second)
             }
         }
     }
 
 
     @Composable
-    fun WorkoutCard(exercise: String, setLogs: List<String>) {
+    fun ExerciseLogCard(exerciseName: String, setLogs: List<String>) {
         Card(
             modifier = Modifier
                 .padding(4.dp)
@@ -70,11 +84,11 @@ class ShowWorkoutLogActivity : AppCompatActivity() {
         ) {
             Column(modifier = Modifier.padding(8.dp)) {
                 Text(
-                    text = exercise,
+                    text = exerciseName,
                     style = MaterialTheme.typography.h6,
                     modifier = Modifier.padding(top = 8.dp, bottom = 4.dp)
                 )
-                //FIXME if setLogs is too big it will cause performance issues
+                //FIXME setLogs is expected to have few items, otherwise it could cause performance issues
                 Column {
                     for (set in setLogs) {
                         Text(text = set)
@@ -82,7 +96,17 @@ class ShowWorkoutLogActivity : AppCompatActivity() {
                 }
             }
         }
+    }
 
+    @Composable
+    fun WorkoutSkippedText() {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(text = stringResource(id = cl.alexissilva.trainerapp.R.string.workout_skipped))
+        }
     }
 
     @Preview
