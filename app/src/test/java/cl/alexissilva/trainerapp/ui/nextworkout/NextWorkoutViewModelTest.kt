@@ -3,18 +3,17 @@ package cl.alexissilva.trainerapp.ui.nextworkout
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import cl.alexissilva.trainerapp.core.data.RemoteResult
 import cl.alexissilva.trainerapp.core.domain.Workout
-import cl.alexissilva.trainerapp.core.domain.WorkoutStatus
 import cl.alexissilva.trainerapp.core.testutils.DummyData
-import cl.alexissilva.trainerapp.testutils.MainCoroutineRule
-import cl.alexissilva.trainerapp.testutils.TestCoroutineContextProvider
 import cl.alexissilva.trainerapp.core.usecases.DownloadWorkouts
 import cl.alexissilva.trainerapp.core.usecases.GetNextWorkout
 import cl.alexissilva.trainerapp.core.usecases.SkipWorkout
+import cl.alexissilva.trainerapp.testutils.MainCoroutineRule
+import cl.alexissilva.trainerapp.testutils.TestCoroutineContextProvider
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -25,7 +24,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
-@ExperimentalCoroutinesApi
+@OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(MockitoJUnitRunner::class)
 class NextWorkoutViewModelTest {
 
@@ -73,7 +72,7 @@ class NextWorkoutViewModelTest {
     }
 
     @Test
-    fun onSuccessfulDownload_setErrorToNull() = runBlockingTest {
+    fun onSuccessfulDownload_setErrorToNull() = runTest {
         val remoteSuccess = RemoteResult.Success(listOf(workout))
         whenever(downloadWorkouts()).thenReturn(remoteSuccess)
 
@@ -84,7 +83,7 @@ class NextWorkoutViewModelTest {
     }
 
     @Test
-    fun onFailDownload_setErrorWithRemoteMessage() = runBlockingTest {
+    fun onFailDownload_setErrorWithRemoteMessage() = runTest {
         val remoteSuccess = RemoteResult.Error<List<Workout>>("remote-error")
         whenever(downloadWorkouts()).thenReturn(remoteSuccess)
 
@@ -104,7 +103,7 @@ class NextWorkoutViewModelTest {
 
     @Deprecated("Behavior deprecated. Delete this and create new tests.")
     @Test
-    fun updateStatus_ofNextWorkout() = runBlockingTest {
+    fun updateStatus_ofNextWorkout() = runTest {
         whenever(nextWorkoutFlow).thenReturn(flowOf(workout))
         initViewModel()
         viewModel.skipWorkout()

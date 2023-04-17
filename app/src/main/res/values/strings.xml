@@ -39,4 +39,12 @@
     <!-- Workout Log -->
     <string name="save">Save</string>
     <string name="workout_skipped">Workout Skipped.</string>
+
+
+    <!-- Exercise Log Adapter -->
+    <string name="set_number">Set %1$d</string>
+
+
+    <string name="item_set_log_reps">Reps</string>
+    <string name="item_set_log_weight">Weight</string>
 </resources>

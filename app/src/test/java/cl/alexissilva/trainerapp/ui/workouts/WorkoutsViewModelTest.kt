@@ -7,15 +7,14 @@ import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 
-
-@ExperimentalCoroutinesApi
+@OptIn(ExperimentalCoroutinesApi::class)
 class WorkoutsViewModelTest {
 
     @get:Rule
@@ -38,7 +37,7 @@ class WorkoutsViewModelTest {
     }
 
     @Test
-    fun getUpcomingWorkouts() = runBlockingTest {
+    fun getUpcomingWorkouts() = runTest {
         val viewModelWorkout = viewModel.workouts.first()
         assertThat(viewModelWorkout).isEqualTo(workouts)
     }

@@ -5,41 +5,44 @@ import androidx.test.filters.SmallTest
 import cl.alexissilva.trainerapp.core.domain.Workout
 import cl.alexissilva.trainerapp.core.usecases.GetLocalWorkout
 import cl.alexissilva.trainerapp.testutils.MainCoroutineRule
+import cl.alexissilva.trainerapp.testutils.TestCoroutineContextProvider
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 
-@ExperimentalCoroutinesApi
+@OptIn(ExperimentalCoroutinesApi::class)
 @SmallTest
 class WorkoutDetailsViewModelTest {
-    private val workout = Workout("1", "s1")
+    private val workoutId = "1"
+    private val workout = Workout(workoutId, "s1")
 
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
 
+    private val contextProvider = TestCoroutineContextProvider()
+
     private lateinit var viewModel: WorkoutDetailsViewModel
 
     @Before
     fun setUp() {
-        val map = mutableMapOf(Pair("workoutId", "1")) as Map<String, *>
-        val state = SavedStateHandle(map)
         val getLocalWorkout = mock<GetLocalWorkout> {
-            on { invoke("1") } doReturn flowOf(workout)
+            on { invoke(workoutId) } doReturn flowOf(workout)
         }
-        viewModel = WorkoutDetailsViewModel(getLocalWorkout, state)
+        viewModel = WorkoutDetailsViewModel(contextProvider, getLocalWorkout)
     }
 
     @Test
-    fun getLocalWorkoutUsingState() = runBlockingTest {
-        val workout = viewModel.workout.first()
-        assertThat(workout).isEqualTo(workout)
+    fun loadLocalWorkout() = runTest {
+        viewModel.loadWorkout(workoutId)
+        val viewModelWorkout = viewModel.workout.first()
+        assertThat(viewModelWorkout).isEqualTo(workout)
     }
 }

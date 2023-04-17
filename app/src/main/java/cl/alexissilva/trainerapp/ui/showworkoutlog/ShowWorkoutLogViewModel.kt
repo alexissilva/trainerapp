@@ -6,9 +6,7 @@ import cl.alexissilva.trainerapp.core.domain.WorkoutLog
 import cl.alexissilva.trainerapp.core.usecases.GetWorkoutLog
 import cl.alexissilva.trainerapp.utils.CoroutineContextProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

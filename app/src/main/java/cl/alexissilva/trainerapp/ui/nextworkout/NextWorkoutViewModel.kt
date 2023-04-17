@@ -18,7 +18,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-
 @HiltViewModel
 class NextWorkoutViewModel @Inject constructor(
     private val downloadWorkoutsUC: DownloadWorkouts,

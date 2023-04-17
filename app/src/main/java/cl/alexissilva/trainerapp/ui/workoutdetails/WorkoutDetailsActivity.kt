@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import cl.alexissilva.trainerapp.R
 import cl.alexissilva.trainerapp.databinding.ActivityWorkoutDetailsBinding
@@ -18,6 +19,7 @@ class WorkoutDetailsActivity :
 
     private var viewModel: WorkoutDetailsViewModel? = null
     private val exercisesAdapter by lazy { ExercisesAdapter() }
+    private val args: WorkoutDetailsActivityArgs by navArgs()
 
     override val inflateBinding: (LayoutInflater) -> ActivityWorkoutDetailsBinding
         get() = ActivityWorkoutDetailsBinding::inflate
@@ -34,6 +36,7 @@ class WorkoutDetailsActivity :
 
     override fun onViewModelCreated(viewModel: WorkoutDetailsViewModel) {
         this.viewModel = viewModel
+        viewModel.loadWorkout(args.workoutId)
         collectState()
     }
 

@@ -36,9 +36,14 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 class CreateWorkoutLogActivityTest {
 
-    private val workoutId = "workoutId"
+    private val workoutId = "workoutIdArg"
     private val workoutLog = DummyData.workoutLog.copy(workoutId = workoutId)
     private val adapterExerciseLogs = emptyList<ExerciseLog>()
+    private val testingIntent = Intent(ApplicationProvider.getApplicationContext(), CreateWorkoutLogActivity::class.java)
+        .apply {
+            putExtra(IS_BEING_TESTED_PARAM, true)
+            putExtra("workoutId", workoutId)
+        }
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
@@ -57,6 +62,10 @@ class CreateWorkoutLogActivityTest {
         adapter = mock {
             on { getExerciseLogs() } doReturn adapterExerciseLogs
         }
+        scenario = launchActivity(testingIntent)
+        scenario?.onActivity {
+            it.setupViewModel(viewModel)
+        }
     }
 
     @After
@@ -64,35 +73,13 @@ class CreateWorkoutLogActivityTest {
         scenario?.close()
     }
 
-    private fun launchActivityAndSetupViewModel(
-        workoutId: String? = null
-    ) {
-        scenario = launchActivity(intent(workoutId))
-        scenario?.onActivity {
-            it.setupViewModel(viewModel)
-        }
-    }
-
-    private fun intent(workoutId: String?): Intent {
-        return Intent(
-            ApplicationProvider.getApplicationContext(),
-            CreateWorkoutLogActivity::class.java
-        )
-            .apply {
-                putExtra(IS_BEING_TESTED_PARAM, true)
-                workoutId?.let { putExtra("workoutId", it) }
-            }
-    }
-
     @Test
-    fun setDraftedWorkoutLog_whenReceiveWorkoutId() {
-        launchActivityAndSetupViewModel(workoutId = workoutId)
+    fun createDraftedWorkoutLog_onViewModelCreated_withWorkoutIdArg() {
         verify(viewModel).createCompleteDraftWorkoutLog(workoutId)
     }
 
     @Test
     fun updateWorkoutLogWithAdapterInfo_onPressSaveButton() {
-        launchActivityAndSetupViewModel(workoutId = workoutId)
         onView(withId(R.id.saveButton)).perform(click())
         verify(viewModel).updateWorkoutLog(adapterExerciseLogs)
     }

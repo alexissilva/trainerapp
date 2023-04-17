@@ -27,7 +27,10 @@ class WorkoutDetailsActivityTest {
     private val workout = DummyData.workout.copy(day = 1)
 
     private val testingIntent = Intent(getApplicationContext(), WorkoutDetailsActivity::class.java)
-        .apply { putExtra(IS_BEING_TESTED_PARAM, true) }
+        .apply {
+            putExtra(IS_BEING_TESTED_PARAM, true)
+            putExtra("workoutId", workout.id)
+        }
 
     @get:Rule
     var activityScenarioRule = activityScenarioRule<WorkoutDetailsActivity>(testingIntent)

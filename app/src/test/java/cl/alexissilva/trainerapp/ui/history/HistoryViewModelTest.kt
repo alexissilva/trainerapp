@@ -5,7 +5,6 @@ import cl.alexissilva.trainerapp.core.testutils.DummyData
 import cl.alexissilva.trainerapp.core.usecases.GetWorkoutLogsWithWorkout
 import cl.alexissilva.trainerapp.testutils.MainCoroutineRule
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Before
 import org.junit.Rule
@@ -13,8 +12,6 @@ import org.junit.Test
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 
-
-@ExperimentalCoroutinesApi
 @SmallTest
 class HistoryViewModelTest {
 

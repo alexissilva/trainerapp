@@ -1,6 +1,7 @@
 package cl.alexissilva.trainerapp.ui.adapters.exerciselogs
 
 import android.text.Editable
+import cl.alexissilva.trainerapp.R
 import cl.alexissilva.trainerapp.databinding.ItemExerciseLogRowBinding
 import cl.alexissilva.trainerapp.databinding.ItemSetLogRowBinding
 import cl.alexissilva.trainerapp.ui.base.MultipleBindingViewHolder
@@ -22,7 +23,7 @@ class SetLogItemHolder(binding: ItemSetLogRowBinding) :
 
     override fun ItemSetLogRowBinding.onBind(item: ExerciseLogItem, position: Int) {
         val item = item as SetLogItem
-        setTextView.text = "Set ${item.number}"
+        setTextView.text = binding.root.context.getString(R.string.set_number, item.number)
         repsEditText.setValueAndUpdateModel(item.reps) { item.reps = it }
         weightEditText.setValueAndUpdateModel(item.weight) { item.weight = it }
         repsEditText.isEnabled = item.done
